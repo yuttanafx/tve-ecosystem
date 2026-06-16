@@ -4,194 +4,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Organic Farm - TVE Web3 Shop</title>
-    <!-- เรียกใช้งาน Tailwind CSS -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- เรียกใช้งาน Ethers.js CDN สำหรับระบบ Web3 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
-    <!-- เพิ่ม Font Prompt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Prompt', sans-serif; }
-    </style>
+    <style>body { font-family: 'Prompt', sans-serif; }</style>
 </head>
 <body class="bg-gray-950 text-gray-100 min-h-screen">
-
-    <!-- NAV BAR & WALLET STATUS -->
     <nav class="border-b border-gray-900 bg-gray-950/80 backdrop-blur sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center max-w-6xl">
-            <a href="../" class="text-sm text-gray-400 hover:text-green-400 transition flex items-center gap-2">
-                ← กลับหน้าหลัก
-            </a>
+            <a href="../" class="text-sm text-gray-400 hover:text-green-400 transition flex items-center gap-2">← กลับหน้าหลัก</a>
             <div>
-                <button id="connectWalletBtn" onclick="connectWallet()" class="bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-4 py-2 rounded-xl text-xs transition duration-200">
-                    🦊 Connect Wallet
-                </button>
-                <div id="walletAddressDisplay" class="hidden bg-gray-900 border border-gray-800 text-green-400 px-4 py-2 rounded-xl text-xs font-mono">
-                    Not Connected
-                </div>
+                <button id="connectWalletBtn" onclick="connectWallet()" class="bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-4 py-2 rounded-xl text-xs transition duration-200">🦊 Connect Wallet</button>
+                <div id="walletAddressDisplay" class="hidden bg-gray-900 border border-gray-800 text-green-400 px-4 py-2 rounded-xl text-xs font-mono">Not Connected</div>
             </div>
         </div>
     </nav>
-
-    <!-- HERO & IOT STATUS -->
     <header class="container mx-auto px-6 py-12 max-w-6xl">
         <div class="text-center md:text-left md:flex justify-between items-center mb-12 gap-8">
             <div class="mb-6 md:mb-0">
-                <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">
-                    🥦 Smart Organic Farm
-                </h1>
-                <p class="text-gray-400 text-sm max-w-xl">
-                    ผลผลิตสดใหม่จากโรงเรือนอัจฉริยะ ควบคุมอุณหภูมิและสภาพแวดล้อมด้วยระบบ IoT แม่นยำ ปลอดสารพิษ 100% คุณสามารถเลือกชำระเงินได้ทั้งเงินสดและเหรียญ TVE ที่ได้จากการขุด
-                </p>
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">🥦 Smart Organic Farm</h1>
+                <p class="text-gray-400 text-sm max-w-xl">ผลผลิตสดใหม่จากโรงเรือนอัจฉริยะ ควบคุมอุณหภูมิและสภาพแวดล้อมด้วยระบบ IoT แม่นยำ ปลอดสารพิษ 100% ชำระเงินได้ทั้งเงินสดและเหรียญ TVE ที่ได้จากการขุด</p>
             </div>
-            
-            <!-- IoT Real-time Status Box -->
             <div class="bg-gray-900 border border-gray-800 rounded-2xl p-4 min-w-[280px] text-left shadow-lg">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-xs font-bold text-gray-400 tracking-wider">📡 STATUS: ONLINE</span>
-                    <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
-                </div>
+                <div class="flex items-center justify-between mb-3"><span class="text-xs font-bold text-gray-400 tracking-wider">📡 STATUS: ONLINE</span><span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span></div>
                 <div class="space-y-2">
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-500">อุณหภูมิโรงเรือน:</span>
-                        <span class="text-green-400 font-semibold">25.4 °C</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-500">ความชื้นในดิน:</span>
-                        <span class="text-green-400 font-semibold">68% RH</span>
-                    </div>
-                    <div class="flex justify-between text-sm">
-                        <span class="text-gray-500">ระบบพ่นหมอก:</span>
-                        <span class="text-blue-400 font-semibold">สแตนด์บาย</span>
-                    </div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">อุณหภูมิโรงเรือน:</span><span class="text-green-400 font-semibold">25.4 °C</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">ความชื้นในดิน:</span><span class="text-green-400 font-semibold">68% RH</span></div>
+                    <div class="flex justify-between text-sm"><span class="text-gray-500">ระบบพ่นหมอก:</span><span class="text-blue-400 font-semibold">สแตนด์บาย</span></div>
                 </div>
             </div>
         </div>
-
-        <!-- PRODUCT SECTION -->
         <h2 class="text-2xl font-bold mb-6 text-white border-b border-gray-900 pb-2">รายการผลผลิตพร้อมส่ง</h2>
-        
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <!-- PRODUCT 1 -->
             <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-green-500/30 transition">
                 <div class="p-6">
                     <div class="text-5xl mb-4 bg-gray-950 p-4 rounded-xl inline-block">🥬</div>
                     <h3 class="text-lg font-bold text-white mb-2">ผักกรีนโอ๊คออร์แกนิก (Green Oak)</h3>
-                    <p class="text-gray-400 text-xs mb-4">
-                        สด กรอบ หวานธรรมชาติ ปลูกด้วยระบบไฮโดรโปนิกส์ควบคุมอุณหภูมิน้ำ เก็บเกี่ยวสดใหม่ทุกเช้า (ชุดละ 250 กรัม)
-                    </p>
+                    <p class="text-gray-400 text-xs mb-4">สด กรอบ หวานธรรมชาติ ปลูกด้วยระบบไฮโดรโปนิกส์ควบคุมอุณหภูมิน้ำ เก็บเกี่ยวสดใหม่ทุกเช้า (ชุดละ 250 กรัม)</p>
                     <div class="bg-gray-950 p-3 rounded-xl space-y-1 mb-2">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-400">💵 ซื้อด้วยเงินสด:</span>
-                            <span class="text-white font-bold">45 บาท</span>
-                        </div>
-                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1">
-                            <span class="text-green-400">🪙 ใช้เหรียญแลก:</span>
-                            <span class="text-green-400 font-bold">15 TVE</span>
-                        </div>
+                        <div class="flex justify-between text-sm"><span class="text-gray-400">💵 ซื้อด้วยเงินสด:</span><span class="text-white font-bold">45 บาท</span></div>
+                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1"><span class="text-green-400">🪙 ใช้เหรียญแลก:</span><span class="text-green-400 font-bold">15 TVE</span></div>
                     </div>
                 </div>
                 <div class="p-6 pt-0 flex gap-2">
-                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">
-                        ซื้อเงินสด
-                    </button>
-                    <!-- ปุ่มผูกฟังก์ชันโอนเหรียญจริง -->
-                    <button onclick="payWithTVE('ผักกรีนโอ๊คออร์แกนิก', 15)" class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">
-                        ใช้เหรียญแลก
-                    </button>
+                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">ซื้อเงินสด</button>
+                    <button onclick="payWithTVE('ผักกรีนโอ๊คออร์แกนิก', 15)" class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">ใช้เหรียญแลก</button>
                 </div>
             </div>
-
-            <!-- PRODUCT 2 -->
             <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-green-500/30 transition">
                 <div class="p-6">
                     <div class="text-5xl mb-4 bg-gray-950 p-4 rounded-xl inline-block">🍅</div>
                     <h3 class="text-lg font-bold text-white mb-2">มะเขือเทศเชอร์รี่แดง (Cherry Tomato)</h3>
-                    <p class="text-gray-400 text-xs mb-4">
-                        มะเขือเทศราชินีรสหวานอมเปรี้ยว วิตามินซีสูง ควบคุมปุ๋ยและน้ำผ่านระบบอัตโนมัติ (แพ็ค 300 กรัม)
-                    </p>
+                    <p class="text-gray-400 text-xs mb-4">มะเขือเทศราชินีรสหวานอมเปรี้ยว วิตามินซีสูง ควบคุมปุ๋ยและน้ำผ่านระบบอัตโนมัติ (แพ็ค 300 กรัม)</p>
                     <div class="bg-gray-950 p-3 rounded-xl space-y-1 mb-2">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-400">💵 ซื้อด้วยเงินสด:</span>
-                            <span class="text-white font-bold">60 บาท</span>
-                        </div>
-                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1">
-                            <span class="text-green-400">🪙 ใช้เหรียญแลก:</span>
-                            <span class="text-green-400 font-bold">20 TVE</span>
-                        </div>
+                        <div class="flex justify-between text-sm"><span class="text-gray-400">💵 ซื้อด้วยเงินสด:</span><span class="text-white font-bold">60 บาท</span></div>
+                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1"><span class="text-green-400">🪙 ใช้เหรียญแลก:</span><span class="text-green-400 font-bold">20 TVE</span></div>
                     </div>
                 </div>
                 <div class="p-6 pt-0 flex gap-2">
-                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">
-                        ซื้อเงินสด
-                    </button>
-                    <button onclick="payWithTVE('มะเขือเทศเชอร์รี่แดง', 20)" class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">
-                        ใช้เหรียญแลก
-                    </button>
+                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">ซื้อเงินสด</button>
+                    <button onclick="payWithTVE('มะเขือเทศเชอร์รี่แดง', 20)" class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">ใช้เหรียญแลก</button>
                 </div>
             </div>
-
-            <!-- PRODUCT 3 -->
             <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-green-500/30 transition">
                 <div class="p-6">
                     <div class="text-5xl mb-4 bg-gray-950 p-4 rounded-xl inline-block">🥕</div>
                     <h3 class="text-lg font-bold text-white mb-2">เบบี้แครอทออร์แกนิก (Baby Carrot)</h3>
-                    <p class="text-gray-400 text-xs mb-4">
-                        แครอทหัวเล็กเนื้อแน่น หวานกรอบ ทานสดหรือคั้นน้ำเพื่อสุขภาพ ปลูกในดินออร์แกนิกปลอดสารเคมี (แพ็ค 250 กรัม)
-                    </p>
+                    <p class="text-gray-400 text-xs mb-4">แครอทหัวเล็กเนื้อแน่น หวานกรอบ ทานสดหรือคั้นน้ำเพื่อสุขภาพ ปลูกในดินออร์แกนิกปลอดสารเคมี (แพ็ค 250 กรัม)</p>
                     <div class="bg-gray-950 p-3 rounded-xl space-y-1 mb-2">
-                        <div class="flex justify-between text-sm">
-                            <span class="text-gray-400">💵 ซื้อด้วยเงินสด:</span>
-                            <span class="text-white font-bold">50 บาท</span>
-                        </div>
-                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1">
-                            <span class="text-green-400">🪙 ใช้เหรียญแลก:</span>
-                            <span class="text-green-400 font-bold">16 TVE</span>
-                        </div>
+                        <div class="flex justify-between text-sm"><span class="text-gray-400">💵 ซื้อด้วยเงินสด:</span><span class="text-white font-bold">50 บาท</span></div>
+                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1"><span class="text-green-400">🪙 ใช้เหรียญแลก:</span><span class="text-green-400 font-bold">16 TVE</span></div>
                     </div>
                 </div>
                 <div class="p-6 pt-0 flex gap-2">
-                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">
-                        ซื้อเงินสด
-                    </button>
-                    <button onclick="payWithTVE('เบบี้แครอทออร์แกนิก', 16)" class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">
-                        ใช้เหรียญแลก
-                    </button>
+                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">ซื้อเงินสด</button>
+                    <button onclick="payWithTVE('เบบี้แครอทออร์แกนิก', 16)" class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">ใช้เหรียญแลก</button>
                 </div>
             </div>
-
         </div>
     </header>
-
-    <footer class="border-t border-gray-900 py-8 text-center text-xs text-gray-600 mt-12">
-        <p>© 2026 TVE Smart Farm. All Rights Reserved.</p>
-    </footer>
-
-    <!-- JAVASCRIPT FOR WEB3 TRANSACTIONS -->
+    <footer class="border-t border-gray-900 py-8 text-center text-xs text-gray-600 mt-12"><p>© 2026 TVE Smart Farm. All Rights Reserved.</p></footer>
     <script>
-        // 🛑 กรุณาแก้ไข 2 ค่านี้ให้ตรงกับระบบของคุณนะครับ
-        const TVE_TOKEN_ADDRESS = "0x0000000000000000000000000000000000000000"; // ใส่ที่อยู่ Contract เหรียญ TVE (BSC)
-        const MERCHANT_WALLET = "0x0000000000000000000000000000000000000000";  // ใส่ที่อยู่กระเป๋าเจ้าของร้านที่จะรับเหรียญ
-
+        const TVE_TOKEN_ADDRESS = "0xa5CF2B6A6E333924ECFaA5C9566578DA7cD571f7"; 
+        const MERCHANT_WALLET = "0x08426D97b96601299b95dDd9d4DBAe157Bf5F013"; 
         const ERC20_ABI = ["function transfer(address to, uint256 amount) public returns (bool)"];
-
         async function connectWallet() {
             if (window.ethereum) {
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     updateWalletUI(accounts[0]);
                     return accounts[0];
-                } catch (error) {
-                    alert("ผู้ใช้ปฏิเสธการเชื่อมต่อกระเป๋า");
-                }
-            } else {
-                alert("กรุณาติดตั้ง MetaMask หรือเปิดบนบราวเซอร์ Web3");
-            }
+                } catch (error) { alert("ผู้ใช้ปฏิเสธการเชื่อมต่อกระเป๋า"); }
+            } else { alert("กรุณาติดตั้ง MetaMask หรือเปิดบนบราวเซอร์ Web3"); }
         }
-
         function updateWalletUI(account) {
             const shortAddress = account.substring(0, 6) + '...' + account.substring(account.length - 4);
             document.getElementById('connectWalletBtn').classList.add('hidden');
@@ -199,41 +106,22 @@
             displayBox.classList.remove('hidden');
             displayBox.innerText = '🟢 Wallet: ' + shortAddress;
         }
-
-        // ฟังก์ชันตัดเหรียญและโอนเงินจริงบนบล็อกเชน
         async function payWithTVE(productName, priceInTVE) {
-            if (!window.ethereum) {
-                alert("กรุณาติดตั้ง MetaMask หรือเปิดในบล็อกเชนบราวเซอร์");
-                return;
-            }
-
+            if (!window.ethereum) { alert("กรุณาติดตั้ง MetaMask"); return; }
             try {
                 const provider = new ethers.BrowserProvider(window.ethereum);
                 const signer = await provider.getSigner();
-                
-                // ตรวจสอบว่ามีกระเป๋าเชื่อมต่ออยู่รึยัง ถ้ายังให้ผูกก่อน
                 const userAddress = await signer.getAddress();
                 updateWalletUI(userAddress);
-
                 const tokenContract = new ethers.Contract(TVE_TOKEN_ADDRESS, ERC20_ABI, signer);
-                // แปลงจำนวนเหรียญ (สมมติว่าเหรียญมี 18 Decimals มาตรฐาน)
                 const amountToSend = ethers.parseUnits(priceInTVE.toString(), 18);
-                
-                alert(`กำลังทำรายการชำระเงินค่า: ${productName}\nยอดชำระ: ${priceInTVE} TVE\nกรุณากดยืนยันใน Wallet ของคุณ`);
-
-                // สั่งทำธุรกรรมโอนเหรียญเข้ากระเป๋าร้านค้าจริง
+                alert(`กำลังทำรายการชำระเงินค่า: ${productName}\nยอดชำระ: ${priceInTVE} TVE`);
                 const tx = await tokenContract.transfer(MERCHANT_WALLET, amountToSend);
                 alert("ส่งธุรกรรมเข้าบล็อกเชนแล้ว กำลังรอการยืนยันบล็อก...\nTx Hash: " + tx.hash);
-                
-                await tx.wait(); // รอจนกว่าธุรกรรมสำเร็จ
-                alert(`🎉 แลกซื้อ ${productName} สำเร็จแล้ว! ขอบคุณที่ร่วมขับเคลื่อนระบบนิเวศกับเรา`);
-                
-            } catch (error) {
-                console.error("Transaction failed:", error);
-                alert("ทำธุรกรรมไม่สำเร็จ: บัญชีเหรียญไม่พอ หรือรายการถูกยกเลิก");
-            }
+                await tx.wait();
+                alert(`🎉 แลกซื้อ ${productName} สำเร็จแล้ว!`);
+            } catch (error) { alert("ทำธุรกรรมไม่สำเร็จ: ยอดเหรียญไม่พอ หรือรายการถูกยกเลิก"); }
         }
-
         window.addEventListener('load', async () => {
             if (window.ethereum) {
                 const accounts = await window.ethereum.request({ method: 'eth_accounts' });
