@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="p-6 pt-0 flex gap-2">
-                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">ซื้อเงินสด</button>
+                    <button onclick="showCashPayment('ผักกรีนโอ๊คออร์แกนิก', 45)" class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition cursor-pointer">ซื้อเงินสด</button>
                     <button onclick="payWithTVE('ผักกรีนโอ๊คออร์แกนิก', 15)" class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">ใช้เหรียญแลก</button>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="p-6 pt-0 flex gap-2">
-                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">ซื้อเงินสด</button>
+                    <button onclick="showCashPayment('มะเขือเทศเชอร์รี่แดง', 60)" class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition cursor-pointer">ซื้อเงินสด</button>
                     <button onclick="payWithTVE('มะเขือเทศเชอร์รี่แดง', 20)" class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">ใช้เหรียญแลก</button>
                 </div>
             </div>
@@ -72,30 +72,110 @@
                 <div class="p-6">
                     <div class="text-5xl mb-4 bg-gray-950 p-4 rounded-xl inline-block">🥕</div>
                     <h3 class="text-lg font-bold text-white mb-2">เบบี้แครอทออร์แกนิก (Baby Carrot)</h3>
-                    <p class="text-gray-400 text-xs mb-4">แครอทหัวเล็กเนื้อแน่น หวานกรอบ ทานสดหรือคั้นน้ำเพื่อสุขภาพ ปลูกในดินออร์แกนิกปลอดสารเคมี (แพ็ค 250 กรัม)</p>
+                    <p class="text-gray-400 text-xs mb-4">เบบี้แครอทเนื้อแน่น หวานกรอบ ปลูกในดินออร์แกนิกปลอดสารเคมี (แพ็ค 250 กรัม)</p>
                     <div class="bg-gray-950 p-3 rounded-xl space-y-1 mb-2">
                         <div class="flex justify-between text-sm"><span class="text-gray-400">💵 ซื้อด้วยเงินสด:</span><span class="text-white font-bold">50 บาท</span></div>
                         <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1"><span class="text-green-400">🪙 ใช้เหรียญแลก:</span><span class="text-green-400 font-bold">16 TVE</span></div>
                     </div>
                 </div>
                 <div class="p-6 pt-0 flex gap-2">
-                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">ซื้อเงินสด</button>
+                    <button onclick="showCashPayment('เบบี้แครอทออร์แกนิก', 50)" class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition cursor-pointer">ซื้อเงินสด</button>
                     <button onclick="payWithTVE('เบบี้แครอทออร์แกนิก', 16)" class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">ใช้เหรียญแลก</button>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- POPUP MODAL FOR CASH PAYMENT + SLIP UPLOAD -->
+    <div id="cashModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-md w-full p-6 text-center shadow-2xl relative my-8">
+            <button onclick="closeCashModal()" class="absolute right-4 top-4 text-gray-500 hover:text-white font-bold text-lg cursor-pointer">✕</button>
+            <div class="text-3xl mb-2">🏦</div>
+            <h3 class="text-xl font-bold text-white mb-1" id="modalProductName">ช่องทางชำระเงินสด</h3>
+            <p class="text-sm text-gray-400 mb-4">ยอดเงินที่ต้องชำระ: <span class="text-green-400 font-bold text-lg" id="modalProductPrice">0</span> บาท</p>
+            
+            <!-- Account Detail -->
+            <div class="bg-gray-950 rounded-xl p-4 text-left border border-gray-900 space-y-1.5 mb-4 font-mono text-xs">
+                <div><span class="text-gray-500">ธนาคาร:</span> <span class="text-white font-semibold">กสิกรไทย (KBANK)</span></div>
+                <div class="flex justify-between items-center">
+                    <div><span class="text-gray-500">เลขบัญชี:</span> <span class="text-green-400 font-bold text-sm" id="accNumber">220-3-446-139</span></div>
+                    <button onclick="copyBankAccount()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-[10px] px-2 py-1 rounded">คัดลอก</button>
+                </div>
+                <div><span class="text-gray-500">ชื่อบัญชี:</span> <span class="text-white">บริษัทเทอร์ราโวลท์อีโค่ จำกัด</span></div>
+            </div>
+
+            <!-- Upload Zone -->
+            <div class="text-left mb-4">
+                <label class="text-xs font-semibold text-gray-400 block mb-2">📸 แนบหลักฐานการโอนเงิน (สลิป):</label>
+                <div class="border-2 border-dashed border-gray-800 hover:border-green-500/50 rounded-xl p-4 text-center cursor-pointer bg-gray-950/50 transition relative group" onclick="document.getElementById('slipInput').click()">
+                    <input type="file" id="slipInput" accept="image/*" class="hidden" onchange="previewSlip(this)">
+                    <div id="uploadPlaceholder" class="space-y-1">
+                        <div class="text-2xl text-gray-600 group-hover:text-green-400 transition">📎</div>
+                        <p class="text-xs text-gray-400">คลิกเพื่อเลือกไฟล์รูปภาพสลิป</p>
+                        <p class="text-[10px] text-gray-600">รองรับไฟล์ JPG, PNG</p>
+                    </div>
+                    <!-- Image Preview Elements -->
+                    <div id="previewContainer" class="hidden space-y-2">
+                        <img id="slipPreviewImg" class="max-h-48 mx-auto rounded-lg border border-gray-800 shadow-md" src="" alt="Slip Preview">
+                        <p class="text-xs text-green-400 font-medium">เปลี่ยนรูปภาพคลิกที่นี่</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button onclick="submitSlip()" class="w-full bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-3 rounded-xl text-sm transition cursor-pointer shadow-lg shadow-green-500/10">📤 ยืนยันและส่งสลิปชำระเงิน</button>
+        </div>
+    </div>
+
     <footer class="border-t border-gray-900 py-8 text-center text-xs text-gray-600 mt-12"><p>© 2026 TVE Smart Farm. All Rights Reserved.</p></footer>
+    
     <script>
         const TVE_TOKEN_ADDRESS = "0xa5CF2B6A6E333924ECFaA5C9566578DA7cD571f7"; 
         const MERCHANT_WALLET = "0x08426D97b96601299b95dDd9d4DBAe157Bf5F013"; 
         const ERC20_ABI = ["function transfer(address to, uint256 amount) public returns (bool)"];
+        
+        function showCashPayment(prodName, price) {
+            document.getElementById('modalProductName').innerText = prodName;
+            document.getElementById('modalProductPrice').innerText = price;
+            // ล้างค่าเก่า
+            document.getElementById('slipInput').value = "";
+            document.getElementById('uploadPlaceholder').classList.remove('hidden');
+            document.getElementById('previewContainer').classList.add('hidden');
+            document.getElementById('cashModal').classList.remove('hidden');
+        }
+        function closeCashModal() {
+            document.getElementById('cashModal').classList.add('hidden');
+        }
+        function copyBankAccount() {
+            navigator.clipboard.writeText("2203446139");
+            alert("คัดลอกเลขบัญชี 220-3-446-139 เรียบร้อยแล้ว!");
+        }
+        function previewSlip(input) {
+            const file = input.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('slipPreviewImg').src = e.target.result;
+                    document.getElementById('uploadPlaceholder').classList.add('hidden');
+                    document.getElementById('previewContainer').classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+        function submitSlip() {
+            const fileInput = document.getElementById('slipInput');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert("⚠️ กรุณาอัปโหลดไฟล์รูปภาพสลิปก่อนกดยืนยันครับ");
+                return;
+            }
+            alert("🎉 ระบบได้รับสลิปหลักฐานการโอนเงินสดเรียบร้อยแล้ว!\nเจ้าหน้าที่จะตรวจสอบความถูกต้องและจัดส่งสินค้าให้คุณโดยเร็วที่สุด");
+            closeCashModal();
+        }
+
         async function connectWallet() {
             if (window.ethereum) {
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    updateWalletUI(accounts[0]);
-                    return accounts[0];
+                    updateWalletUI(accounts[0]); return accounts[0];
                 } catch (error) { alert("ผู้ใช้ปฏิเสธการเชื่อมต่อกระเป๋า"); }
             } else { alert("กรุณาติดตั้ง MetaMask หรือเปิดบนบราวเซอร์ Web3"); }
         }
@@ -103,8 +183,7 @@
             const shortAddress = account.substring(0, 6) + '...' + account.substring(account.length - 4);
             document.getElementById('connectWalletBtn').classList.add('hidden');
             const displayBox = document.getElementById('walletAddressDisplay');
-            displayBox.classList.remove('hidden');
-            displayBox.innerText = '🟢 Wallet: ' + shortAddress;
+            displayBox.classList.remove('hidden'); displayBox.innerText = '🟢 Wallet: ' + shortAddress;
         }
         async function payWithTVE(productName, priceInTVE) {
             if (!window.ethereum) { alert("กรุณาติดตั้ง MetaMask"); return; }
