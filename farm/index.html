@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Organic Farm - TVE Shop</title>
+    <!-- เรียกใช้งาน Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- เพิ่ม Font Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Prompt', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+
+    <!-- NAV BAR & BACK TO HOME -->
+    <nav class="border-b border-gray-900 bg-gray-950/80 backdrop-blur sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center max-w-6xl">
+            <a href="../" class="text-sm text-gray-400 hover:text-green-400 transition flex items-center gap-2">
+                ← กลับหน้าหลัก
+            </a>
+            <div class="flex items-center gap-3">
+                <span class="bg-green-500/10 text-green-400 border border-green-500/20 px-3 py-1 rounded-full text-xs font-semibold">
+                    🟢 Wallet Connected
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO & IOT MONITORING STATUS -->
+    <header class="container mx-auto px-6 py-12 max-w-6xl">
+        <div class="text-center md:text-left md:flex justify-between items-center mb-12 gap-8">
+            <div class="mb-6 md:mb-0">
+                <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">
+                    🥦 Smart Organic Farm
+                </h1>
+                <p class="text-gray-400 text-sm max-w-xl">
+                    ผลผลิตสดใหม่จากโรงเรือนอัจฉริยะ ควบคุมอุณหภูมิและสภาพแวดล้อมด้วยระบบ IoT แม่นยำ ปลอดสารพิษ 100% คุณสามารถเลือกชำระเงินได้ทั้งเงินสดและเหรียญ TVE ที่ได้จากการขุด
+                </p>
+            </div>
+            
+            <!-- IoT Real-time Status Box -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl p-4 min-w-[280px] text-left shadow-lg">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-bold text-gray-400 tracking-wider">📡 STATUS: ONLINE</span>
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">อุณหภูมิโรงเรือน:</span>
+                        <span class="text-green-400 font-semibold">25.4 °C</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">ความชื้นในดิน:</span>
+                        <span class="text-green-400 font-semibold">68% RH</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">ระบบพ่นหมอก:</span>
+                        <span class="text-blue-400 font-semibold">สแตนด์บาย</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCT SECTION -->
+        <h2 class="text-2xl font-bold mb-6 text-white border-b border-gray-900 pb-2">รายการผลผลิตพร้อมส่ง</h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- PRODUCT 1 -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-green-500/30 transition">
+                <div class="p-6">
+                    <div class="text-5xl mb-4 bg-gray-950 p-4 rounded-xl inline-block">🥬</div>
+                    <h3 class="text-lg font-bold text-white mb-2">ผักกรีนโอ๊คออร์แกนิก (Green Oak)</h3>
+                    <p class="text-gray-400 text-xs mb-4">
+                        สด กรอบ หวานธรรมชาติ ปลูกด้วยระบบไฮโดรโปนิกส์ควบคุมอุณหภูมิน้ำ เก็บเกี่ยวสดใหม่ทุกเช้า (ชุดละ 250 กรัม)
+                    </p>
+                    <!-- Price Options -->
+                    <div class="bg-gray-950 p-3 rounded-xl space-y-1 mb-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">💵 ซื้อด้วยเงินสด:</span>
+                            <span class="text-white font-bold">45 บาท</span>
+                        </div>
+                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1">
+                            <span class="text-green-400">🪙 ใช้เหรียญแลก:</span>
+                            <span class="text-green-400 font-bold">15 TVE</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 pt-0 flex gap-2">
+                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">
+                        ซื้อเงินสด
+                    </button>
+                    <button class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">
+                        ใช้เหรียญแลก
+                    </button>
+                </div>
+            </div>
+
+            <!-- PRODUCT 2 -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-green-500/30 transition">
+                <div class="p-6">
+                    <div class="text-5xl mb-4 bg-gray-950 p-4 rounded-xl inline-block">🍅</div>
+                    <h3 class="text-lg font-bold text-white mb-2">มะเขือเทศเชอร์รี่แดง (Cherry Tomato)</h3>
+                    <p class="text-gray-400 text-xs mb-4">
+                        มะเขือเทศราชินีรสหวานอมเปรี้ยว วิตามินซีสูง ควบคุมปุ๋ยและน้ำผ่านระบบอัตโนมัติ (แพ็ค 300 กรัม)
+                    </p>
+                    <div class="bg-gray-950 p-3 rounded-xl space-y-1 mb-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">💵 ซื้อด้วยเงินสด:</span>
+                            <span class="text-white font-bold">60 บาท</span>
+                        </div>
+                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1">
+                            <span class="text-green-400">🪙 ใช้เหรียญแลก:</span>
+                            <span class="text-green-400 font-bold">20 TVE</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 pt-0 flex gap-2">
+                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">
+                        ซื้อเงินสด
+                    </button>
+                    <button class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">
+                        ใช้เหรียญแลก
+                    </button>
+                </div>
+            </div>
+
+            <!-- PRODUCT 3 -->
+            <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-green-500/30 transition">
+                <div class="p-6">
+                    <div class="text-5xl mb-4 bg-gray-950 p-4 rounded-xl inline-block">🥕</div>
+                    <h3 class="text-lg font-bold text-white mb-2">เบบี้แครอทออร์แกนิก (Baby Carrot)</h3>
+                    <p class="text-gray-400 text-xs mb-4">
+                        แครอทหัวเล็กเนื้อแน่น หวานกรอบ ทานสดหรือคั้นน้ำเพื่อสุขภาพ ปลูกในดินออร์แกนิกปลอดสารเคมี (แพ็ค 250 กรัม)
+                    </p>
+                    <div class="bg-gray-950 p-3 rounded-xl space-y-1 mb-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-400">💵 ซื้อด้วยเงินสด:</span>
+                            <span class="text-white font-bold">50 บาท</span>
+                        </div>
+                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1">
+                            <span class="text-green-400">🪙 ใช้เหรียญแลก:</span>
+                            <span class="text-green-400 font-bold">16 TVE</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-6 pt-0 flex gap-2">
+                    <button class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition">
+                        ซื้อเงินสด
+                    </button>
+                    <button class="w-1/2 bg-green-500 hover:bg-green-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">
+                        ใช้เหรียญแลก
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-900 py-8 text-center text-xs text-gray-600 mt-12">
+        <p>© 2026 TVE Smart Farm. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
