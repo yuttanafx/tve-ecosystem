@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2=family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Prompt', sans-serif; }
 
@@ -87,25 +87,6 @@
             100% { transform: scale(1.9); opacity: 0; }
         }
 
-        /* ===== FLOW SECTION CONNECTING LINES ===== */
-        .flow-connector {
-            position: relative;
-        }
-        .flow-connector::after {
-            content: '→';
-            position: absolute;
-            right: -24px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: rgba(34,197,94,0.4);
-            font-size: 1.5rem;
-            animation: arrowPulse 1.8s ease-in-out infinite;
-        }
-        @keyframes arrowPulse {
-            0%, 100% { opacity: 0.3; transform: translateY(-50%) translateX(0); }
-            50%       { opacity: 1;   transform: translateY(-50%) translateX(6px); }
-        }
-
         /* ===== CARD HOVER GLOW ===== */
         .card-glow {
             transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
@@ -170,23 +151,19 @@
             transform: none;
         }
 
-        /* NAV blur */
         nav { position: relative; z-index: 50; }
-
-        /* Stack everything above canvas */
         header, section, main, footer { position: relative; z-index: 1; }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100 min-h-screen overflow-x-hidden">
 
-<!-- ===== PARTICLE CANVAS (floating crypto coins + blockchain lines) ===== -->
 <canvas id="particle-canvas"></canvas>
 
 <!-- NAV -->
 <nav class="border-b border-gray-900 bg-gray-950/80 backdrop-blur sticky top-0 z-50">
     <div class="container mx-auto px-6 py-4 flex justify-between items-center max-w-6xl">
         <div class="text-lg font-bold tracking-wider text-green-400 flex items-center gap-2">
-            <span style="animation:swing 1.4s ease-in-out infinite;display:inline-block;transform-origin:bottom right">⛏️</span>
+            <span class="pickaxe-swing">⛏️</span>
             TVE ECOSYSTEM
         </div>
         <div>
@@ -202,12 +179,10 @@
 
 <!-- HERO -->
 <header class="container mx-auto px-6 py-16 text-center max-w-4xl relative">
-    <!-- Blockchain node grid behind hero -->
     <div class="blockchain-bg rounded-3xl">
         <div class="node-grid"></div>
     </div>
 
-    <!-- Floating coins in hero area -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
         <span class="coin-float" style="left:12%;bottom:10%;--dur:5.5s;--delay:0s">🪙</span>
         <span class="coin-float" style="left:26%;bottom:5%;--dur:4.8s;--delay:1.2s">💎</span>
@@ -229,7 +204,6 @@
         ยินดีต้อนรับสู่ศูนย์กลางระบบนิเวศที่คุณสามารถขุดเหรียญเพื่อนำไปใช้แลกเปลี่ยนสินค้า นวัตกรรมฟาร์ม อาหารเพื่อสุขภาพ และเครื่องใช้ในชีวิตประจำวันได้จริง
     </p>
 
-    <!-- Live stat strip -->
     <div class="flex flex-wrap justify-center gap-6 mb-8 text-sm">
         <div class="bg-gray-900/70 border border-gray-800 rounded-xl px-4 py-2 flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-green-400 inline-block" style="animation:ringPulse 1.5s ease-out infinite;box-shadow:0 0 6px #4ade80"></span>
@@ -238,7 +212,7 @@
         </div>
         <div class="bg-gray-900/70 border border-gray-800 rounded-xl px-4 py-2 flex items-center gap-2">
             <span class="text-gray-400">TVE Price:</span>
-            <span class="font-bold price-live">฿ Bonus</span>
+            <span class="font-bold price-live">฿ 0.38</span>
         </div>
         <div class="bg-gray-900/70 border border-gray-800 rounded-xl px-4 py-2 flex items-center gap-2">
             <span class="text-gray-400">Blocks:</span>
@@ -259,35 +233,35 @@
 <!-- ECOSYSTEM FLOW -->
 <section class="bg-gray-900/50 border-y border-gray-900 py-12 mb-16 reveal">
     <div class="container mx-auto px-6 max-w-5xl">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
 
             <!-- Step 1 -->
-            <div class="p-4">
+            <div class="p-6 bg-gray-950/40 border border-gray-900 rounded-2xl relative">
                 <div class="text-4xl mb-3 pickaxe-swing">⛏️</div>
-                <div class="text-xs uppercase tracking-widest text-green-500 font-semibold mb-1">Step 1</div>
+                <div class="text-xs uppercase tracking-widest text-green-400 font-semibold mb-1">STEP 1</div>
                 <h3 class="text-lg font-semibold text-white mb-1">ขุดและสะสม</h3>
                 <p class="text-sm text-gray-400">เข้าสู่ระบบจำลองการขุดเพื่อรับเหรียญประจำแพลตฟอร์ม</p>
             </div>
 
             <!-- Step 2 -->
-            <div class="p-4 border-t md:border-t-0 md:border-x border-gray-800">
+            <div class="p-6 bg-gray-950/40 border border-gray-900 rounded-2xl relative">
                 <div class="text-4xl mb-3" style="animation:bounce 2s ease-in-out infinite;display:inline-block">🔗</div>
-                <div class="text-xs uppercase tracking-widest text-green-500 font-semibold mb-1">Step 2</div>
+                <div class="text-xs uppercase tracking-widest text-green-400 font-semibold mb-1">STEP 2</div>
                 <h3 class="text-lg font-semibold text-white mb-1">เชื่อมต่อกระเป๋า</h3>
                 <p class="text-sm text-gray-400">ผูก Wallet เพื่อเตรียมใช้เหรียญ TVE ในการทำธุรกรรม</p>
             </div>
 
             <!-- Step 3 -->
-            <div class="p-4 border-t md:border-t-0 border-gray-800">
-                <div class="text-4xl mb-3" style="animation:bounce 2.2s ease-in-out infinite 0.3s;display:inline-block">🛒</div>
-                <div class="text-xs uppercase tracking-widest text-green-500 font-semibold mb-1">Step 3</div>
+            <div class="p-6 bg-gray-950/40 border border-gray-900 rounded-2xl relative">
+                <div class="text-4xl mb-3">🛒</div>
+                <div class="text-xs uppercase tracking-widest text-green-400 font-semibold mb-1">STEP 3</div>
                 <h3 class="text-lg font-semibold text-white mb-1">ใช้ซื้อสินค้า</h3>
                 <p class="text-sm text-gray-400">นำเหรียญที่ได้ไปแลกเปลี่ยนผักออร์แกนิก ยา และของใช้ในบ้าน</p>
             </div>
-
+            
         </div>
 
-        <!-- animated progress bar -->
+        <!-- Progress Bar -->
         <div class="mt-10 max-w-xl mx-auto">
             <div class="flex justify-between text-xs text-gray-500 mb-1">
                 <span>Ecosystem Progress</span><span class="text-green-400">68%</span>
@@ -316,11 +290,10 @@
         <span class="text-green-400">Use Cases</span> สินค้าและบริการในระบบนิเวศของเรา
     </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- CARD 1: TVET Mining -->
         <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden">
-            <!-- background pickaxe watermark -->
             <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none" style="animation:swing 2s ease-in-out infinite">⛏️</div>
             <div>
                 <div class="text-4xl mb-4 pickaxe-swing">⛏️</div>
@@ -334,7 +307,22 @@
             </a>
         </div>
 
-        <!-- CARD 2: Smart Farm -->
+        <!-- CARD 2: NEW ⭐ Terravolt Eco Mining -->
+        <div class="reveal bg-gray-900 border border-green-500/30 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden shadow-lg shadow-green-500/5">
+            <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none">📦</div>
+            <div>
+                <div class="text-4xl mb-4" style="animation:bounce 2.8s ease-in-out infinite;display:inline-block">📦</div>
+                <h3 class="text-xl font-bold text-green-400 mb-2 group-hover:text-green-300 transition-colors">Industrial Mining Container</h3>
+                <p class="text-gray-400 text-sm mb-6">
+                    ระบบติดตามตู้คอนเทนเนอร์ขุดบิตคอยน์ระบบ Hydro-Cooled ประสิทธิภาพสูง ตรวจสอบสถานะการทำงาน แรงดันไฟฟ้า และความร้อนแบบเรียลไทม์
+                </p>
+            </div>
+            <a href="https://terravolteco-mining.vercel.app/" target="_blank" class="w-full text-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-gray-950 font-bold py-3 rounded-xl transition duration-200">
+                ตรวจสอบสถานะตู้ขุด ↗
+            </a>
+        </div>
+
+        <!-- CARD 3: Smart Farm -->
         <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden">
             <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none" style="animation:bounce 3s ease-in-out infinite">🌿</div>
             <div>
@@ -349,7 +337,7 @@
             </a>
         </div>
 
-        <!-- CARD 3: Medical Nutrition -->
+        <!-- CARD 4: Medical Nutrition -->
         <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden">
             <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none">💊</div>
             <div>
@@ -364,7 +352,7 @@
             </a>
         </div>
 
-        <!-- CARD 4: Smart Living -->
+        <!-- CARD 5: Smart Living -->
         <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden">
             <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none">🔌</div>
             <div>
@@ -383,7 +371,6 @@
 
     <!-- SIGNAL CARD -->
     <div class="mt-12 reveal scan-card bg-gradient-to-r from-gray-900 to-green-950/40 border border-gray-800 rounded-2xl p-8 text-center max-w-3xl mx-auto">
-        <!-- orbiting ring -->
         <div class="relative inline-flex items-center justify-center mb-3">
             <div class="text-5xl relative z-10" style="animation:bounce 2s ease-in-out infinite">🔑</div>
             <div class="absolute w-20 h-20 rounded-full border border-green-500/20" style="animation:ringPulse 2s ease-out infinite"></div>
@@ -423,7 +410,6 @@
     resize();
     window.addEventListener('resize', resize);
 
-    // Blockchain nodes (hexagonal network)
     function createNodes(n) {
         nodes = [];
         for (let i = 0; i < n; i++) {
@@ -438,7 +424,6 @@
         }
     }
 
-    // Floating coin particles
     function createParticles(n) {
         const emojis = ['🪙','💎','⛏️','🟢'];
         particles = [];
@@ -463,7 +448,6 @@
     function draw() {
         ctx.clearRect(0, 0, W, H);
 
-        // Draw network links
         for (let i = 0; i < nodes.length; i++) {
             for (let j = i + 1; j < nodes.length; j++) {
                 const dx = nodes[i].x - nodes[j].x;
@@ -481,7 +465,6 @@
             }
         }
 
-        // Draw nodes
         nodes.forEach(n => {
             ctx.beginPath();
             ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
@@ -492,7 +475,6 @@
             if (n.y < 0 || n.y > H) n.vy *= -1;
         });
 
-        // Draw coin particles (emoji on canvas)
         particles.forEach(p => {
             ctx.save();
             ctx.globalAlpha = p.opacity;
@@ -511,7 +493,6 @@
     }
     draw();
 
-    // Incrementing block counter
     let block = 104291;
     setInterval(() => {
         block++;
@@ -535,10 +516,10 @@ const io = new IntersectionObserver(entries => {
 reveals.forEach(el => io.observe(el));
 </script>
 
-<!-- WALLET & REDEEM JS (unchanged) -->
+<!-- WALLET & REDEEM JS -->
 <script>
     const TVE_TOKEN_ADDRESS = "0xa5CF2B6A6E333924ECFaA5C9566578DA7cD571f7";
-    const MERCHANT_WALLET  = "0x08426D97b96601299b95dDd9d4DBAe157Bf5F013";
+    const MERCHANT_WALLET   = "0x08426D97b96601299b95dDd9d4DBAe157Bf5F013";
     const ERC20_ABI = ["function transfer(address to, uint256 amount) public returns (bool)"];
 
     async function connectWallet() {
