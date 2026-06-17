@@ -13,7 +13,7 @@
         body { font-family: 'Prompt', sans-serif; transition: background-color 0.3s, color 0.3s; }
 
         /* ไอคอนสลับโหมดสีขาวควันบุหรี่ */
-        .theme-toggle-btn { color: #f5f5f5; background-color: rgba(245, 245, 245, 0.05); }
+        .theme-toggle-btn { color: #f5f5f5; background-color: rgba(245, 245, 245, 0.05); border: 1px solid rgba(245, 245, 245, 0.1); }
         .theme-toggle-btn:hover { background-color: rgba(245, 245, 245, 0.15); }
 
         /* ===== PARTICLE CANVAS ===== */
@@ -119,21 +119,6 @@
             100% { top: 120%; }
         }
 
-        @keyframes digitSpin {
-            0%   { transform: translateY(-100%); opacity: 0; }
-            20%  { transform: translateY(0);     opacity: 1; }
-            80%  { transform: translateY(0);     opacity: 1; }
-            100% { transform: translateY(100%);  opacity: 0; }
-        }
-        .stat-digit { display: inline-block; animation: digitSpin 4s ease-in-out infinite; }
-
-        @keyframes priceBlink {
-            0%, 90%, 100% { color: #4ade80; }
-            95%            { color: #86efac; }
-        }
-        .price-live { animation: priceBlink 3s ease-in-out infinite; }
-        .glow-text { text-shadow: 0 0 20px rgba(34,197,94,0.45), 0 0 60px rgba(34,197,94,0.2); }
-
         .reveal {
             opacity: 0;
             transform: translateY(28px);
@@ -157,11 +142,11 @@
             TVE ECOSYSTEM
         </div>
         <div class="flex items-center gap-4">
-            <!-- ปุ่มดวงอาทิตย์/ดวงจันทร์ สีขาวควันบุหรี่ -->
-            <button onclick="toggleTheme()" class="theme-toggle-btn p-2 rounded-xl text-lg transition cursor-pointer flex items-center justify-center border border-transparent" title="สลับโหมดมืด/สว่าง">
+            <!-- ปุ่มดวงอาทิตย์/ดวงจันทร์ สีขาวควันบุหรี่ ปรับขอบในโหมดสว่างอัตโนมัติ -->
+            <button onclick="toggleTheme()" class="theme-toggle-btn p-2 rounded-xl text-lg transition cursor-pointer flex items-center justify-center [&.light-toggle]:border-gray-300 [&.light-toggle]:bg-gray-200 [&.light-toggle]:text-gray-800" title="สลับโหมดมืด/สว่าง" id="mainThemeBtn">
                 <span id="themeIcon">☀️</span>
             </button>
-            <button id="connectWalletBtn" onclick="connectWallet()" class="bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-4 py-2 rounded-xl text-sm transition duration-200 flex items-center gap-2 shadow-md shadow-green-500/10">
+            <button id="connectWalletBtn" class="bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-4 py-2 rounded-xl text-sm transition duration-200 flex items-center gap-2 shadow-md shadow-green-500/10">
                 🦊 Connect Wallet
             </button>
             <div id="walletAddressDisplay" class="hidden bg-gray-900 border border-gray-800 text-green-400 px-4 py-2 rounded-xl text-xs font-mono inner-box-theme border-theme">
@@ -191,24 +176,26 @@
         </div>
     </div>
 
-    <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-6 bg-gradient-to-r from-white via-gray-200 to-green-400 bg-clip-text text-transparent glow-text title-gradient-theme">
+    <!-- แก้ไขปัญชาพาดหัวแตก/จางเรียบร้อย คมชัดทุกโหมด -->
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-white text-content-main" id="mainHeaderTitle">
         ขุดเหรียญ พัฒนาชีวิต <br class="hidden md:block"> ขับเคลื่อนด้วยเทคโนโลยี
     </h1>
     <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto text-content-sub">
         ยินดีต้อนรับสู่ศูนย์กลางระบบนิเวศที่คุณสามารถขุดเหรียญเพื่อนำไปใช้แลกเปลี่ยนสินค้า นวัตกรรมฟาร์ม อาหารเพื่อสุขภาพ และเครื่องใช้ในชีวิตประจำวันได้จริง
     </p>
 
+    <!-- แก้ไขปัญหาคลาสกล่องสเตตัสซ้อนกันให้อ่านง่าย ชัดเจน -->
     <div class="flex flex-wrap justify-center gap-6 mb-8 text-sm">
-        <div class="bg-gray-900/70 border border-gray-800 rounded-xl px-4 py-2 flex items-center gap-2 card-theme">
-            <span class="w-2 h-2 rounded-full bg-green-400 inline-block" style="animation:ringPulse 1.5s ease-out infinite;box-shadow:0 0 6px #4ade80"></span>
+        <div class="bg-gray-900 border border-gray-800 rounded-xl px-5 py-3 flex items-center gap-2 card-theme shadow-md">
+            <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
             <span class="text-gray-400 text-content-sub">Miners Online:</span>
-            <span class="text-green-400 font-bold stat-digit">2,841</span>
+            <span class="text-green-400 font-bold">2,841</span>
         </div>
-        <div class="bg-gray-900/70 border border-gray-800 rounded-xl px-4 py-2 flex items-center gap-2 card-theme">
+        <div class="bg-gray-900 border border-gray-800 rounded-xl px-5 py-3 flex items-center gap-2 card-theme shadow-md">
             <span class="text-gray-400 text-content-sub">TVE Price:</span>
-            <span class="font-bold price-live">฿ Bonus</span>
+            <span class="text-green-400 font-bold">฿ 0.38</span>
         </div>
-        <div class="bg-gray-900/70 border border-gray-800 rounded-xl px-4 py-2 flex items-center gap-2 card-theme">
+        <div class="bg-gray-900 border border-gray-800 rounded-xl px-5 py-3 flex items-center gap-2 card-theme shadow-md">
             <span class="text-gray-400 text-content-sub">Blocks:</span>
             <span class="text-green-400 font-bold">#<span id="blockCount">104,291</span></span>
         </div>
@@ -228,19 +215,19 @@
 <section class="bg-gray-900/50 border-y border-gray-900 py-12 mb-16 reveal border-theme section-flow-theme">
     <div class="container mx-auto px-6 max-w-5xl">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center relative">
-            <div class="p-6 bg-gray-950/40 border border-gray-900 rounded-2xl relative inner-box-theme border-theme">
+            <div class="p-6 bg-gray-950 border border-gray-900 rounded-2xl relative inner-box-theme border-theme">
                 <div class="text-4xl mb-3 pickaxe-swing">⛏️</div>
                 <div class="text-xs uppercase tracking-widest text-green-400 font-semibold mb-1">STEP 1</div>
                 <h3 class="text-lg font-semibold text-white mb-1 text-content-main">ขุดและสะสม</h3>
                 <p class="text-sm text-gray-400 text-content-sub">เข้าสู่ระบบจำลองการขุดเพื่อรับเหรียญประจำแพลตฟอร์ม</p>
             </div>
-            <div class="p-6 bg-gray-950/40 border border-gray-900 rounded-2xl relative inner-box-theme border-theme">
+            <div class="p-6 bg-gray-950 border border-gray-900 rounded-2xl relative inner-box-theme border-theme">
                 <div class="text-4xl mb-3" style="animation:bounce 2s ease-in-out infinite;display:inline-block">🔗</div>
                 <div class="text-xs uppercase tracking-widest text-green-400 font-semibold mb-1">STEP 2</div>
                 <h3 class="text-lg font-semibold text-white mb-1 text-content-main">เชื่อมต่อกระเป๋า</h3>
                 <p class="text-sm text-gray-400 text-content-sub">ผูก Wallet เพื่อเตรียมใช้เหรียญ TVE ในการทำธุรกรรม</p>
             </div>
-            <div class="p-6 bg-gray-950/40 border border-gray-900 rounded-2xl relative inner-box-theme border-theme">
+            <div class="p-6 bg-gray-950 border border-gray-900 rounded-2xl relative inner-box-theme border-theme">
                 <div class="text-4xl mb-3">🛒</div>
                 <div class="text-xs uppercase tracking-widest text-green-400 font-semibold mb-1">STEP 3</div>
                 <h3 class="text-lg font-semibold text-white mb-1 text-content-main">ใช้ซื้อสินค้า</h3>
@@ -250,7 +237,7 @@
         <div class="mt-10 max-w-xl mx-auto">
             <div class="flex justify-between text-xs text-gray-500 mb-1"><span class="text-content-sub">Ecosystem Progress</span><span class="text-green-400">68%</span></div>
             <div class="h-1.5 bg-gray-800 rounded-full overflow-hidden bar-bg-theme">
-                <div class="h-full bg-gradient-to-r from-green-600 to-green-400 rounded-full" style="width:0%;animation:growBar 2.5s ease forwards 0.5s"></div>
+                <div class="h-full bg-gradient-to-r from-green-600 to-green-400 rounded-full" style="width:68%"></div>
             </div>
         </div>
     </div>
@@ -263,9 +250,8 @@
     </h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- CARD 1: TVET Mining -->
+        <!-- CARD 1 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
-            <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none" style="animation:swing 2s ease-in-out infinite">⛏️</div>
             <div>
                 <div class="text-4xl mb-4 pickaxe-swing">⛏️</div>
                 <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">TVET Mining System</h3>
@@ -274,20 +260,18 @@
             <a href="https://tvet-mining.vercel.app/" target="_blank" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-3 rounded-xl transition duration-200">เปิดระบบขุดเหรียญ ↗</a>
         </div>
 
-        <!-- CARD 2: Industrial Mining -->
+        <!-- CARD 2 -->
         <div class="reveal bg-gray-900 border border-green-500/30 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden shadow-lg shadow-green-500/5 card-theme special-card-theme">
-            <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none">📦</div>
             <div>
                 <div class="text-4xl mb-4" style="animation:bounce 2.8s ease-in-out infinite;display:inline-block">📦</div>
                 <h3 class="text-xl font-bold text-green-400 mb-2 group-hover:text-green-300 transition-colors">Industrial Mining Container</h3>
-                <p class="text-gray-400 text-sm mb-6 text-content-sub">ระบบติดตามตู้คอนเทนเนอร์ขุดบิตคอยน์ระบบ Hydro-Cooled ประсิทธิภาพสูง ตรวจสอบสถานะการทำงาน แรงดันไฟฟ้า และความร้อนแบบเรียลไทม์</p>
+                <p class="text-gray-400 text-sm mb-6 text-content-sub">ระบบติดตามตู้คอนเทนเนอร์ขุดบิตคอยน์ระบบ Hydro-Cooled ประสิทธิภาพสูง ตรวจสอบสถานะการทำงาน แรงดันไฟฟ้า และความร้อนแบบเรียลไทม์</p>
             </div>
             <a href="https://terravolteco-mining.vercel.app/" target="_blank" class="w-full text-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-gray-950 font-bold py-3 rounded-xl transition duration-200">ตรวจสอบสถานะตู้ขุด ↗</a>
         </div>
 
-        <!-- CARD 3: Smart Farm -->
+        <!-- CARD 3 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
-            <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none" style="animation:bounce 3s ease-in-out infinite">🌿</div>
             <div>
                 <div class="text-4xl mb-4" style="animation:bounce 2.5s ease-in-out infinite;display:inline-block">🥦</div>
                 <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">Smart Organic Farm</h3>
@@ -296,9 +280,8 @@
             <a href="./farm" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-3 rounded-xl transition duration-200">เข้าสู่ร้านค้าฟาร์มผัก ↗</a>
         </div>
 
-        <!-- CARD 4: Medical Nutrition -->
+        <!-- CARD 4 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
-            <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none">💊</div>
             <div>
                 <div class="text-4xl mb-4" style="animation:pulse 2s ease-in-out infinite;display:inline-block">💊</div>
                 <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">Medical Nutrition</h3>
@@ -307,9 +290,8 @@
             <a href="./nutrition" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-3 rounded-xl transition duration-200">ดูข้อมูลโภชนาการ ↗</a>
         </div>
 
-        <!-- CARD 5: Smart Living -->
+        <!-- CARD 5 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
-            <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none">🔌</div>
             <div>
                 <div class="text-4xl mb-4" style="animation:bounce 2.2s ease-in-out infinite 0.4s;display:inline-block">🔌</div>
                 <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">Smart Living Gadgets</h3>
@@ -318,9 +300,8 @@
             <a href="./shop" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-3 rounded-xl transition duration-200">เลือกดูเครื่องใช้ไฟฟ้า ↗</a>
         </div>
 
-        <!-- CARD 6 (NEW 📌 กล่องที่ 6 เติมเต็มตารางให้สมบูรณ์): Travel & Merits -->
+        <!-- CARD 6 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
-            <div class="absolute right-4 bottom-4 text-8xl opacity-5 select-none pointer-events-none" style="animation:bounce 3.5s ease-in-out infinite">🙏</div>
             <div>
                 <div class="text-4xl mb-4" style="animation:bounce 2.4s ease-in-out infinite;display:inline-block">🕌</div>
                 <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">TVE Travel & Merits</h3>
@@ -339,9 +320,9 @@
         <h3 class="text-2xl font-bold text-white mb-2 text-content-main">TVE Signal Activation System</h3>
         <p class="text-gray-400 text-sm mb-6 max-w-xl mx-auto text-content-sub">นำเหรียญ TVE ที่ได้จากการขุดมาแลกรับ <span class="text-green-400 font-semibold">รหัสเข้าใช้งาน (Activation Code)</span> เพื่อใช้สำหรับล็อกอินเข้าสู่ระบบรับสัญญาณซิกแนลของเราได้ทันที</p>
         <div class="bg-gray-950 p-4 rounded-xl max-w-xs mx-auto mb-6 border border-gray-900 inner-box-theme border-theme">
-            <div class="flex justify-between text-sm"><span class="text-gray-400 text-content-sub">🪙 ค่าเปิดใช้งาน:</span><span class="text-green-400 font-bold price-live">500 TVE / รหัส</span></div>
+            <div class="flex justify-between text-sm"><span class="text-gray-400 text-content-sub">🪙 ค่าเปิดใช้งาน:</span><span class="text-green-400 font-bold">500 TVE / รหัส</span></div>
         </div>
-        <button onclick="redeemSignalCode(500)" class="w-full sm:w-auto bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-8 py-4 rounded-xl transition duration-200 shadow-lg shadow-green-500/10 cursor-pointer">🪙 ใช้ 500 TVE แลกรับรหัสซิกแนล</button>
+        <button id="redeemBtn" class="w-full sm:w-auto bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-8 py-4 rounded-xl transition duration-200 shadow-lg shadow-green-500/10 cursor-pointer">🪙 ใช้ 500 TVE แลกรับรหัสซิกแนล</button>
     </div>
 </main>
 
@@ -349,7 +330,7 @@
 
 <!-- ===== INTERSECTION OBSERVER & ANIMATION JS ===== -->
 <script>
-let globalThemeColor = "rgba(34,197,94,"; 
+let globalThemeColor = "rgba(34,197,94,";
 
 function toggleTheme() {
     const body = document.body;
@@ -365,6 +346,8 @@ function toggleTheme() {
     const themeIcon = document.getElementById('themeIcon');
     const logoText = document.querySelector('.logo-text-theme');
     const bannerCard = document.querySelector('.banner-card-theme');
+    const mainThemeBtn = document.getElementById('mainThemeBtn');
+    const mainHeaderTitle = document.getElementById('mainHeaderTitle');
     
     if (body.classList.contains('bg-gray-950')) {
         // LIGHT MODE
@@ -372,6 +355,8 @@ function toggleTheme() {
         body.classList.replace('text-gray-100', 'text-gray-900');
         nav.classList.add('light-theme', 'bg-white/80', 'border-gray-200');
         logoText.classList.replace('text-green-400', 'text-green-600');
+        mainThemeBtn.classList.add('light-toggle');
+        mainHeaderTitle.classList.replace('text-white', 'text-gray-900');
         
         cards.forEach(c => {
             if(!c.classList.contains('special-card-theme')) {
@@ -383,11 +368,10 @@ function toggleTheme() {
         });
         
         innerBoxes.forEach(b => {
-            b.classList.replace('bg-gray-950/40', 'bg-gray-50');
             b.classList.replace('bg-gray-950', 'bg-gray-50');
         });
         
-        textMains.forEach(t => t.classList.replace('text-white', 'text-gray-900'));
+        textMains.forEach(t => { if(t.id !== 'mainHeaderTitle') t.classList.replace('text-white', 'text-gray-900'); });
         textSubs.forEach(t => t.classList.replace('text-gray-400', 'text-gray-600'));
         borders.forEach(b => b.classList.replace('border-gray-900', 'border-gray-200'));
         btnSecondaries.forEach(btn => btn.classList.replace('text-green-400', 'text-green-600'));
@@ -405,6 +389,8 @@ function toggleTheme() {
         body.classList.replace('text-gray-900', 'text-gray-100');
         nav.classList.remove('light-theme', 'bg-white/80', 'border-gray-200');
         logoText.classList.replace('text-green-600', 'text-green-400');
+        mainThemeBtn.classList.remove('light-toggle');
+        mainHeaderTitle.classList.replace('text-gray-900', 'text-white');
         
         cards.forEach(c => {
             c.classList.replace('bg-white', 'bg-gray-900');
@@ -412,11 +398,10 @@ function toggleTheme() {
         });
         
         innerBoxes.forEach(b => {
-            b.classList.replace('bg-gray-50', 'bg-gray-955/40');
             b.classList.replace('bg-gray-50', 'bg-gray-955');
         });
         
-        textMains.forEach(t => t.classList.replace('text-gray-900', 'text-white'));
+        textMains.forEach(t => { if(t.id !== 'mainHeaderTitle') t.classList.replace('text-gray-900', 'text-white'); });
         textSubs.forEach(t => t.classList.replace('text-gray-600', 'text-gray-400'));
         borders.forEach(b => b.classList.replace('border-gray-200', 'border-gray-900'));
         btnSecondaries.forEach(btn => btn.classList.replace('text-green-600', 'text-green-400'));
@@ -451,7 +436,7 @@ function toggleTheme() {
         }
     }
     function createParticles(n) {
-        const emojis = ['🪙','💎','⛏️','🟢','🕌'];
+        const emojis = ['🪙','💎','⛏️','🟢'];
         particles = [];
         for (let i = 0; i < n; i++) {
             particles.push({
@@ -514,53 +499,6 @@ const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
 }, { threshold: 0.12 });
 reveals.forEach(el => io.observe(el));
-</script>
-
-<!-- WALLET & BLOCKCHAIN INTERACTION -->
-<script>
-    const TVE_TOKEN_ADDRESS = "0xa5CF2B6A6E333924ECFaA5C9566578DA7cD571f7";
-    const MERCHANT_WALLET   = "0x08426D97b96601299b95dDd9d4DBAe157Bf5F013";
-    const ERC20_ABI = ["function transfer(address to, uint256 amount) public returns (bool)"];
-
-    async function connectWallet() {
-        if (window.ethereum) {
-            try {
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                updateWalletUI(accounts[0]); return accounts[0];
-            } catch (error) { alert("การเชื่อมต่อกระเป๋าถูกปฏิเสธ"); }
-        } else { alert("ไม่พบ Web3 Wallet กรุณาติดตั้ง MetaMask"); }
-    }
-    function updateWalletUI(account) {
-        const shortAddress = account.substring(0, 6) + '...' + account.substring(account.length - 4);
-        document.getElementById('connectWalletBtn').classList.add('hidden');
-        const displayBox = document.getElementById('walletAddressDisplay');
-        displayBox.classList.remove('hidden'); displayBox.innerText = '🟢 Wallet: ' + shortAddress;
-    }
-    async function redeemSignalCode(priceInTVE) {
-        if (!window.ethereum) { alert("กรุณาติดตั้ง MetaMask"); return; }
-        try {
-            const provider = new ethers.BrowserProvider(window.ethereum);
-            const signer   = await provider.getSigner();
-            const userAddress = await signer.getAddress();
-            updateWalletUI(userAddress);
-            const tokenContract = new ethers.Contract(TVE_TOKEN_ADDRESS, ERC20_ABI, signer);
-            const amountToSend  = ethers.parseUnits(priceInTVE.toString(), 18);
-            alert(`ระบบกำลังทำรายการแลกรหัสซิกแนล\nยอดชำระ: ${priceInTVE} TVE`);
-            const tx = await tokenContract.transfer(MERCHANT_WALLET, amountToSend);
-            alert("ส่งธุรกรรมเข้าบล็อกเชนแล้ว Tx Hash: " + tx.hash);
-            await tx.wait();
-            const generatedCode = "TVE-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-            alert(`🎉 สำเร็จ!\nรหัสซิกแนลของคุณคือ: ${generatedCode}`);
-            window.open("https://tvesystem.vercel.app/", "_blank");
-        } catch (error) { alert("ธุรกรรมถูกยกเลิก หรือยอดเหรียญไม่เพียงพอ"); }
-    }
-    window.addEventListener('load', async () => {
-        if (window.ethereum) {
-            const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-            if (accounts.length > 0) updateWalletUI(accounts[0]);
-        }
-        if(localStorage.getItem('theme') === 'light') { toggleTheme(); }
-    });
 </script>
 </body>
 </html>
