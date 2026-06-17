@@ -3,257 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Living Shop - TVE Web3 Gadget Hub</title>
+    <title>TVE Smart Living Shop - ศูนย์ฝึกอาชีพและพลังงานหมุนเวียน</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2=family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Prompt', sans-serif; transition: background-color 0.3s, color 0.3s; }
-        .theme-toggle-btn { color: #f5f5f5; background-color: rgba(245, 245, 245, 0.05); }
-        .theme-toggle-btn:hover { background-color: rgba(245, 245, 245, 0.15); }
+        
+        /* Floating Tech Bits Animation */
+        .tech-float {
+            position: absolute;
+            font-size: 1.3rem;
+            opacity: 0;
+            animation: techRise var(--dur, 6s) ease-in-out var(--delay, 0s) infinite;
+            pointer-events: none;
+        }
+        @keyframes techRise {
+            0%   { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
+            15%  { opacity: 0.5; }
+            85%  { opacity: 0.3; }
+            100% { transform: translateY(-200px) scale(1.1) rotate(25deg); opacity: 0; }
+        }
+
+        .card-glow {
+            transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+        }
+        .card-glow:hover {
+            box-shadow: 0 0 25px rgba(34, 197, 94, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible { opacity: 1; transform: none; }
     </style>
 </head>
-<body class="bg-gray-950 text-gray-100 min-h-screen">
-    <nav class="border-b border-gray-900 bg-gray-950/80 backdrop-blur sticky top-0 z-50 transition-colors [&.light-theme]:bg-white/80 [&.light-theme]:border-gray-200">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center max-w-6xl">
-            <a href="../" class="text-sm text-gray-400 hover:text-green-400 transition flex items-center gap-2">← กลับหน้าหลัก</a>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleTheme()" class="theme-toggle-btn p-2 rounded-xl text-lg transition cursor-pointer flex items-center justify-center border border-transparent" title="สลับโหมดมืด/สว่าง">
-                    <span id="themeIcon">☀️</span>
-                </button>
-                <button id="connectWalletBtn" onclick="connectWallet()" class="bg-blue-500 hover:bg-blue-400 text-gray-950 font-bold px-4 py-2 rounded-xl text-xs transition duration-200">🦊 Connect Wallet</button>
-                <div id="walletAddressDisplay" class="hidden bg-gray-900 border border-gray-800 text-blue-400 px-4 py-2 rounded-xl text-xs font-mono">Not Connected</div>
-            </div>
-        </div>
-    </nav>
-    <header class="container mx-auto px-6 py-12 max-w-6xl">
-        <div class="text-center md:text-left mb-12">
-            <h1 class="text-3xl md:text-4xl font-bold mb-3 text-content-main">🔌 Smart Living Shop (เครื่องใช้ในชีวิตประจำวัน)</h1>
-            <p class="text-gray-400 text-sm max-w-2xl text-content-sub">เปลี่ยนหยาดเหงื่อจากการขุดเหรียญ TVE ของคุณ มาเป็นอุปกรณ์อำนวยความสะดวกที่จับต้องได้จริงในชีวิตประจำวัน</p>
-        </div>
-        <h2 class="text-2xl font-bold mb-6 border-b border-gray-900 pb-2 text-content-main border-theme">อุปกรณ์ Smart Home & ส่วนลดค่าซ่อมบำรุง</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-blue-500/30 transition card-theme">
-                <div class="p-6">
-                    <div class="text-5xl mb-4 bg-gray-950 p-4 rounded-xl inline-block inner-box-theme">💡</div>
-                    <h3 class="text-lg font-bold mb-2 text-content-main">หลอดไฟ LED อัจฉริยะ (Smart Wi-Fi Bulb)</h3>
-                    <p class="text-gray-400 text-xs mb-4 text-content-sub">หลอดไฟอัจฉริยะประหยัดพลังงาน ปรับเฉดสีได้ถึง 16 ล้านสี ควบคุมผ่านสมาร์ทโฟน สั่งการด้วยเสียงได้</p>
-                    <div class="bg-gray-950 p-3 rounded-xl space-y-1 mb-2 inner-box-theme">
-                        <div class="flex justify-between text-sm"><span class="text-gray-400 text-content-sub">💵 ซื้อด้วยเงินสด:</span><span class="text-content-main font-bold">290 บาท</span></div>
-                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1 border-theme"><span class="text-blue-400">🪙 ใช้เหรียญแลก:</span><span class="text-blue-400 font-bold">90 TVE</span></div>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-2">
-                    <button onclick="showCashPayment('หลอดไฟ LED อัจฉริยะ', 290)" class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition cursor-pointer btn-cash-theme">ซื้อเงินสด</button>
-                    <button onclick="payWithTVE('หลอดไฟ LED อัจฉริยะ', 90)" class="w-1/2 bg-blue-500 hover:bg-blue-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">ใช้เหรียญแลก</button>
-                </div>
-            </div>
-            <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-blue-500/30 transition card-theme">
-                <div class="p-6">
-                    <div class="text-5xl mb-4 bg-gray-950 p-4 rounded-xl inline-block inner-box-theme">🔌</div>
-                    <h3 class="text-lg font-bold mb-2 text-content-main">ปลั๊กไฟ IoT วัดพลังงาน (Smart Power Monitor)</h3>
-                    <p class="text-gray-400 text-xs mb-4 text-content-sub">ปลั๊กเสียบอัจฉริยะ ตัดไฟผ่านแอป พร้อมระบบรายงานอัตราการสิ้นเปลืองกระแสไฟฟ้าแบบ Real-time</p>
-                    <div class="bg-gray-950 p-3 rounded-xl space-y-1 mb-2 inner-box-theme">
-                        <div class="flex justify-between text-sm"><span class="text-gray-400 text-content-sub">💵 ซื้อด้วยเงินสด:</span><span class="text-content-main font-bold">450 บาท</span></div>
-                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1 border-theme"><span class="text-blue-400">🪙 ใช้เหรียญแลก:</span><span class="text-blue-400 font-bold">140 TVE</span></div>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-2">
-                    <button onclick="showCashPayment('ปลั๊กไฟ IoT วัดพลังงาน', 450)" class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition cursor-pointer btn-cash-theme">ซื้อเงินสด</button>
-                    <button onclick="payWithTVE('ปลั๊กไฟ IoT วัดพลังงาน', 140)" class="w-1/2 bg-blue-500 hover:bg-blue-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">ใช้เหรียญแลก</button>
-                </div>
-            </div>
-            <div class="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-blue-500/30 transition card-theme">
-                <div class="p-6">
-                    <div class="text-5xl mb-4 bg-gray-950 p-4 rounded-xl inline-block inner-box-theme">🍃</div>
-                    <h3 class="text-lg font-bold mb-2 text-content-main">เครื่องฟอกอากาศอัจฉริยะ (Smart Air Purifier)</h3>
-                    <p class="text-gray-400 text-xs mb-4 text-content-sub">เครื่องฟอกอากาศขนาดกะทัดรัด แผ่นกรอง HEPA กรองฝุ่น PM2.5 ได้แม่นยำ พร้อมเซนเซอร์ตรวจจับคุณภาพอากาศ</p>
-                    <div class="bg-gray-950 p-3 rounded-xl space-y-1 mb-2 inner-box-theme">
-                        <div class="flex justify-between text-sm"><span class="text-gray-400 text-content-sub">💵 ซื้อด้วยเงินสด:</span><span class="text-content-main font-bold">1,890 บาท</span></div>
-                        <div class="flex justify-between text-sm border-t border-gray-900 pt-1 mt-1 border-theme"><span class="text-blue-400">🪙 ใช้เหรียญแลก:</span><span class="text-blue-400 font-bold">590 TVE</span></div>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 flex gap-2">
-                    <button onclick="showCashPayment('เครื่องฟอกอากาศอัจฉริยะ', 1890)" class="w-1/2 bg-gray-800 hover:bg-gray-700 text-white text-xs font-semibold py-2.5 rounded-xl transition cursor-pointer btn-cash-theme">ซื้อเงินสด</button>
-                    <button onclick="payWithTVE('เครื่องฟอกอากาศอัจฉริยะ', 590)" class="w-1/2 bg-blue-500 hover:bg-blue-400 text-gray-950 text-xs font-bold py-2.5 rounded-xl transition">ใช้เหรียญแลก</button>
-                </div>
-            </div>
-        </div>
-    </header>
+<body class="bg-gray-950 text-gray-100 min-h-screen overflow-x-hidden">
 
-    <div id="cashModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-gray-900 border border-gray-800 rounded-2xl max-w-md w-full p-6 text-center shadow-2xl relative my-8 modal-box-theme">
-            <button onclick="closeCashModal()" class="absolute right-4 top-4 text-gray-500 hover:text-white font-bold text-lg cursor-pointer">✕</button>
-            <div class="text-3xl mb-2">🏦</div>
-            <h3 class="text-xl font-bold mb-1 text-content-main" id="modalProductName">ช่องทางชำระเงินสด</h3>
-            <p class="text-sm text-gray-400 mb-4 text-content-sub">ยอดเงินที่ต้องชำระ: <span class="text-blue-400 font-bold text-lg" id="modalProductPrice">0</span> บาท</p>
-            
-            <div class="bg-gray-950 rounded-xl p-4 text-left border border-gray-900 space-y-1.5 mb-4 font-mono text-xs inner-box-theme border-theme">
-                <div><span class="text-gray-500">ธนาคาร:</span> <span class="text-content-main font-semibold">กสิกรไทย (KBANK)</span></div>
-                <div class="flex justify-between items-center">
-                    <div><span class="text-gray-500">เลขบัญชี:</span> <span class="text-blue-400 font-bold text-sm">220-3-446-139</span></div>
-                    <button onclick="copyBankAccount()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-[10px] px-2 py-1 rounded">คัดลอก</button>
-                </div>
-                <div><span class="text-gray-500">ชื่อบัญชี:</span> <span class="text-content-main">บริษัทเทอร์ราโวลท์อีโค่ จำกัด</span></div>
-            </div>
-
-            <div class="text-left mb-4">
-                <label class="text-xs font-semibold text-gray-400 block mb-2 text-content-sub">📸 แนบหลักฐานการโอนเงิน (สลิป):</label>
-                <div class="border-2 border-dashed border-gray-800 hover:border-blue-500/50 rounded-xl p-4 text-center cursor-pointer bg-gray-950/50 transition relative group inner-box-theme border-theme" onclick="document.getElementById('slipInput').click()">
-                    <input type="file" id="slipInput" accept="image/*" class="hidden" onchange="previewSlip(this)">
-                    <div id="uploadPlaceholder" class="space-y-1">
-                        <div class="text-2xl text-gray-600 group-hover:text-blue-400 transition">📎</div>
-                        <p class="text-xs text-gray-400 text-content-sub">คลิกเพื่อเลือกไฟล์รูปภาพสลิป</p>
-                    </div>
-                    <div id="previewContainer" class="hidden space-y-2">
-                        <img id="slipPreviewImg" class="max-h-48 mx-auto rounded-lg border border-gray-800 shadow-md" src="" alt="Slip Preview">
-                        <p class="text-xs text-blue-400 font-medium">เปลี่ยนรูปภาพคลิกที่นี่</p>
-                    </div>
-                </div>
-            </div>
-            <button onclick="submitSlip()" class="w-full bg-blue-500 hover:bg-blue-400 text-gray-950 font-bold py-3 rounded-xl text-sm transition cursor-pointer shadow-lg shadow-blue-500/10">📤 ยืนยันและส่งสลิปชำระเงิน</button>
+<nav class="border-b border-gray-900 bg-gray-950/80 backdrop-blur sticky top-0 z-50 transition-colors [&.light-theme]:bg-white/80 [&.light-theme]:border-gray-200">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center max-w-6xl">
+        <div class="text-lg font-bold tracking-wider text-green-400 flex items-center gap-2 logo-text-theme">
+            <span>🔌</span>
+            TVE SMART LIVING SHOP
+        </div>
+        <div class="flex items-center gap-4">
+            <button onclick="toggleTheme()" class="p-2 rounded-xl text-lg transition cursor-pointer flex items-center justify-center bg-gray-900/50 hover:bg-gray-800 border border-gray-800 theme-toggle-btn" title="สลับโหมดมืด/สว่าง">
+                <span id="themeIcon">☀️</span>
+            </button>
+            <a href="../" class="text-sm font-medium text-gray-400 hover:text-green-400 transition flex items-center gap-1 btn-back-theme">
+                🔙 กลับหน้าหลัก Hub
+            </a>
         </div>
     </div>
+</nav>
+
+<header class="container mx-auto px-6 py-12 text-center max-w-4xl relative">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <span class="tech-float" style="left:10%;bottom:10%;--dur:6.5s;--delay:0s">⚡</span>
+        <span class="tech-float" style="left:25%;bottom:5%;--dur:5s;--delay:1.2s">⚙️</span>
+        <span class="tech-float" style="left:70%;bottom:0%;--dur:7.5s;--delay:0.5s">🔋</span>
+        <span class="tech-float" style="left:88%;bottom:8%;--dur:5.8s;--delay:1.8s">🛠️</span>
+    </div>
+
+    <div class="inline-block mb-4">
+        <div class="bg-green-500/10 text-green-400 border border-green-500/20 px-4 py-1.5 rounded-full text-sm font-medium badge-theme">
+            🎓 ฝึกอาชีพ ยกระดับทักษะ และสร้างนวัตกรรมพลังงานหมุนเวียนด้วยตัวคุณเอง
+        </div>
+    </div>
+
+    <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-4 bg-gradient-to-r from-white via-gray-200 to-green-400 bg-clip-text text-transparent title-gradient-theme">
+        คลังอุปกรณ์และหลักสูตรพลังงาน ISP
+    </h1>
+    <p class="text-base text-gray-400 mb-6 max-w-2xl mx-auto text-content-sub">
+        นำเหรียญ TVE จากน้ำพักน้ำแรงการขุดของคุณ มาแลกรับสิทธิ์ส่วนลดเทคโนโลยีจัดเก็บพลังงาน ชุดคิททดลองประดิษฐ์ และหลักสูตรอบรมวิชาชีพซ่อมบำรุงระบบเพื่ออนาคตที่ยั่งยืน
+    </p>
+</header>
+
+<main class="container mx-auto px-6 pb-16 max-w-6xl">
     
-    <footer class="border-t border-gray-900 py-8 text-center text-xs text-gray-600 mt-12 border-theme"><p>© 2026 TVE Smart Living Shop. All Rights Reserved.</p></footer>
-    <script>
-        const TVE_TOKEN_ADDRESS = "0xa5CF2B6A6E333924ECFaA5C9566578DA7cD571f7"; 
-        const MERCHANT_WALLET = "0x08426D97b96601299b95dDd9d4DBAe157Bf5F013"; 
-        const ERC20_ABI = ["function transfer(address to, uint256 amount) public returns (bool)"];
+    <h2 class="text-xl md:text-2xl font-bold mb-8 text-center reveal text-content-main">
+        🛠️ สินค้า เทคโนโลยี และหลักสูตรฝึกทักษะแนะนำ
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         
-        function toggleTheme() {
-            const body = document.body;
-            const nav = document.querySelector('nav');
-            const cards = document.querySelectorAll('.card-theme');
-            const innerBoxes = document.querySelectorAll('.inner-box-theme');
-            const textMains = document.querySelectorAll('.text-content-main');
-            const textSubs = document.querySelectorAll('.text-content-sub');
-            const borders = document.querySelectorAll('.border-theme');
-            const modals = document.querySelectorAll('.modal-box-theme');
-            const btnCashes = document.querySelectorAll('.btn-cash-theme');
-            const themeIcon = document.getElementById('themeIcon');
-            
-            if (body.classList.contains('bg-gray-950')) {
-                body.classList.replace('bg-gray-950', 'bg-gray-100');
-                body.classList.replace('text-gray-100', 'text-gray-900');
-                nav.classList.add('light-theme', 'bg-white/80', 'border-gray-200');
-                cards.forEach(c => c.classList.replace('bg-gray-900', 'bg-white'));
-                cards.forEach(c => c.classList.replace('border-gray-800', 'border-gray-200'));
-                innerBoxes.forEach(b => b.classList.replace('bg-gray-950', 'bg-gray-50'));
-                innerBoxes.forEach(b => b.classList.replace('bg-gray-950/50', 'bg-gray-50'));
-                innerBoxes.forEach(b => b.classList.replace('border-gray-900', 'border-gray-200'));
-                innerBoxes.forEach(b => b.classList.replace('border-gray-800', 'border-gray-200'));
-                textMains.forEach(t => t.classList.replace('text-white', 'text-gray-900'));
-                textSubs.forEach(t => t.classList.replace('text-gray-400', 'text-gray-600'));
-                borders.forEach(b => b.classList.replace('border-gray-900', 'border-gray-200'));
-                modals.forEach(m => m.classList.replace('bg-gray-900', 'bg-white'));
-                modals.forEach(m => m.classList.replace('border-gray-800', 'border-gray-200'));
-                btnCashes.forEach(btn => btn.classList.replace('bg-gray-800', 'bg-gray-200'));
-                btnCashes.forEach(btn => btn.classList.replace('text-white', 'text-gray-800'));
-                btnCashes.forEach(btn => btn.classList.replace('hover:bg-gray-700', 'hover:bg-gray-300'));
-                themeIcon.innerText = "🌙";
-                localStorage.setItem('theme', 'light');
-            } else {
-                body.classList.replace('bg-gray-100', 'bg-gray-950');
-                body.classList.replace('text-gray-900', 'text-gray-100');
-                nav.classList.remove('light-theme', 'bg-white/80', 'border-gray-200');
-                cards.forEach(c => c.classList.replace('bg-white', 'bg-gray-900'));
-                cards.forEach(c => c.classList.replace('border-gray-200', 'border-gray-800'));
-                innerBoxes.forEach(b => b.classList.replace('bg-gray-50', 'bg-gray-955'));
-                innerBoxes.forEach(b => b.classList.replace('bg-gray-50', 'bg-gray-950/50'));
-                innerBoxes.forEach(b => b.classList.replace('border-gray-200', 'border-gray-900'));
-                innerBoxes.forEach(b => b.classList.replace('border-gray-200', 'border-gray-800'));
-                textMains.forEach(t => t.classList.replace('text-gray-900', 'text-white'));
-                textSubs.forEach(t => t.classList.replace('text-gray-600', 'text-gray-400'));
-                borders.forEach(b => b.classList.replace('border-gray-200', 'border-gray-900'));
-                modals.forEach(m => m.classList.replace('bg-white', 'bg-gray-900'));
-                modals.forEach(m => m.classList.replace('border-gray-200', 'border-gray-800'));
-                btnCashes.forEach(btn => btn.classList.replace('bg-gray-200', 'bg-gray-800'));
-                btnCashes.forEach(btn => btn.classList.replace('text-gray-800', 'text-white'));
-                btnCashes.forEach(btn => btn.classList.replace('hover:bg-gray-300', 'hover:bg-gray-700'));
-                themeIcon.innerText = "☀️";
-                localStorage.setItem('theme', 'dark');
-            }
-        }
+        <div class="reveal bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden card-glow card-theme flex flex-col justify-between">
+            <div class="p-6">
+                <div class="text-4xl mb-3">🔋</div>
+                <span class="bg-green-500/10 text-green-400 text-[10px] font-bold px-2 py-0.5 rounded border border-green-500/20">Technology Discount</span>
+                <h3 class="text-lg font-bold text-white mt-2 mb-1 text-content-main">ส่วนลดเครื่อง Ion Storage Power (ISP)</h3>
+                <p class="text-gray-400 text-xs leading-relaxed text-content-sub">สิทธิ์ส่วนลดพิเศษสำหรับสั่งซื้อเครื่องจัดเก็บพลังงานอัจฉริยะ ISP ระบบสำรองไฟฟ้านวัตกรรมใหม่ ปลอดภัยสูง ประสิทธิภาพดีเยี่ยมเพื่อบ้านและโรงเรือนการเกษตร</p>
+            </div>
+            <div class="p-6 pt-0 border-t border-gray-800/50 border-theme mt-2">
+                <div class="text-xs text-gray-500 mb-3 flex justify-between text-content-sub"><span>🪙 ยอดชำระสิทธิ์ส่วนลด:</span> <span class="text-green-400 font-bold text-sm">450 TVE</span></div>
+                <button onclick="redeemShopItem('ส่วนลดเครื่อง ISP', 450)" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2.5 rounded-xl text-xs transition duration-200 cursor-pointer">แลกรับคูปองส่วนลด 🪙</button>
+            </div>
+        </div>
 
-        function showCashPayment(prodName, price) {
-            document.getElementById('modalProductName').innerText = prodName;
-            document.getElementById('modalProductPrice').innerText = price;
-            document.getElementById('slipInput').value = "";
-            document.getElementById('uploadPlaceholder').classList.remove('hidden');
-            document.getElementById('previewContainer').classList.add('hidden');
-            document.getElementById('cashModal').classList.remove('hidden');
-        }
-        function closeCashModal() {
-            document.getElementById('cashModal').classList.add('hidden');
-        }
-        function copyBankAccount() {
-            navigator.clipboard.writeText("2203446139");
-            alert("คัดลอกเลขบัญชี 220-3-446-139 เรียบร้อยแล้ว!");
-        }
-        function previewSlip(input) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('slipPreviewImg').src = e.target.result;
-                    document.getElementById('uploadPlaceholder').classList.add('hidden');
-                    document.getElementById('previewContainer').classList.remove('hidden');
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-        function submitSlip() {
-            const fileInput = document.getElementById('slipInput');
-            if (!fileInput.files || fileInput.files.length === 0) {
-                alert("⚠️ กรุณาอัปโหลดไฟล์รูปภาพสลิปก่อนกดยืนยันครับ");
-                return;
-            }
-            alert("🎉 ระบบได้รับสลิปหลักฐานการโอนเงินสดเรียบร้อยแล้ว!\nเจ้าหน้าที่จะทำการตรวจสอบยอดเงินและจัดส่งสินค้าสมาร์ทโฮมให้ท่านทันทีครับ");
-            closeCashModal();
-        }
+        <div class="reveal bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden card-glow card-theme flex flex-col justify-between">
+            <div class="p-6">
+                <div class="text-4xl mb-3">⚙️</div>
+                <span class="bg-green-500/10 text-green-400 text-[10px] font-bold px-2 py-0.5 rounded border border-green-500/20">DIY Training Kit</span>
+                <h3 class="text-lg font-bold text-white mt-2 mb-1 text-content-main">ชุดคิททดลองระบบพลังงานหมุนเวียน</h3>
+                <p class="text-gray-400 text-xs leading-relaxed text-content-sub">ชุดเครื่องมือทดลอง (DIY) สำหรับเรียนรู้การต่อวงจรไฟฟ้ากระแสตรง บอร์ดควบคุมพลังงานแสงอาทิตย์เบื้องต้น เพื่อฝึกฝนความรู้พื้นฐานสู่วิศวกรพลังงานชุมชน</p>
+            </div>
+            <div class="p-6 pt-0 border-t border-gray-800/50 border-theme mt-2">
+                <div class="text-xs text-gray-500 mb-3 flex justify-between text-content-sub"><span>🪙 ยอดแลกรับชุดอุปกรณ์:</span> <span class="text-green-400 font-bold text-sm">300 TVE</span></div>
+                <button onclick="redeemShopItem('ชุดคิททดลองระบบพลังงาน', 300)" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2.5 rounded-xl text-xs transition duration-200 cursor-pointer">แลกรับชุดคิททดลอง 🪙</button>
+            </div>
+        </div>
 
-        async function connectWallet() {
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    updateWalletUI(accounts[0]); return accounts[0];
-                } catch (error) { alert("ผู้ใช้ปฏิเสธการเชื่อมต่อกระเป๋า"); }
-            } else { alert("กรุณาติดตั้ง MetaMask หรือเปิดบนบราวเซอร์ Web3"); }
-        }
-        function updateWalletUI(account) {
-            const shortAddress = account.substring(0, 6) + '...' + account.substring(account.length - 4);
-            document.getElementById('connectWalletBtn').classList.add('hidden');
-            const displayBox = document.getElementById('walletAddressDisplay');
-            displayBox.classList.remove('hidden'); displayBox.innerText = '🟢 Wallet: ' + shortAddress;
-        }
-        async function payWithTVE(productName, priceInTVE) {
-            if (!window.ethereum) { alert("กรุณาติดตั้ง MetaMask"); return; }
-            try {
-                const provider = new ethers.BrowserProvider(window.ethereum);
-                const signer = await provider.getSigner();
-                const userAddress = await signer.getAddress();
-                updateWalletUI(userAddress);
-                const tokenContract = new ethers.Contract(TVE_TOKEN_ADDRESS, ERC20_ABI, signer);
-                const amountToSend = ethers.parseUnits(priceInTVE.toString(), 18);
-                alert(`กำลังชำระค่าสินค้า: ${productName}\nยอดชำระ: ${priceInTVE} TVE`);
-                const tx = await tokenContract.transfer(MERCHANT_WALLET, amountToSend);
-                alert("ธุรกรรมส่งเข้าสู่บล็อกเชนแล้ว กำลังรอการคอนเฟิร์มบล็อก...\nTx Hash: " + tx.hash);
-                await tx.wait();
-                alert(`🎉 ซื้อสินค้า ${productName} สำเร็จเรียบร้อยแล้ว!`);
-            } catch (error) { alert("ทำธุรกรรมไม่สำเร็จ: ยอดเหรียญไม่พอ หรือรายการถูกยกเลิก"); }
-        }
-        window.addEventListener('load', async () => {
-            if (window.ethereum) {
-                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
-                if (accounts.length > 0) updateWalletUI(accounts[0]);
-            }
-            if(localStorage.getItem('theme') === 'light') {
-                toggleTheme();
-            }
+        <div class="reveal bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden card-glow card-theme flex flex-col justify-between">
+            <div class="p-6">
+                <div class="text-4xl mb-3">🛠️</div>
+                <span class="bg-amber-500/10 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/20">Skill Academy</span>
+                <h3 class="text-lg font-bold text-white mt-2 mb-1 text-content-main">หลักสูตรอบรมซ่อมบำรุงระบบ ISP</h3>
+                <p class="text-gray-400 text-xs leading-relaxed text-content-sub">คอร์สฝึกวิชาชีพและเสริมทักษะเชิงลึก เรียนรู้วิธีการบำรุงรักษา ตรวจเช็คสถานะระบบ และแก้ปัญหาเทคนิคของเครื่องจัดเก็บพลังงาน ISP (ได้รับใบประกาศเมื่อเรียนจบ)</p>
+            </div>
+            <div class="p-6 pt-0 border-t border-gray-800/50 border-theme mt-2">
+                <div class="text-xs text-gray-500 mb-3 flex justify-between text-content-sub"><span>🪙 ค่าลงทะเบียนเรียนคอร์ส:</span> <span class="text-green-400 font-bold text-sm">500 TVE</span></div>
+                <button onclick="redeemShopItem('หลักสูตรอบรมซ่อมบำรุง ISP', 500)" class="w-full text-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-gray-950 font-bold py-2.5 rounded-xl text-xs transition duration-200 cursor-pointer">ลงทะเบียนเข้าอบรม 🪙</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="border-t border-gray-900 py-8 text-center text-xs text-gray-600 border-theme"><p>© 2026 TVE Ecosystem Project. All Rights Reserved.</p></footer>
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const nav = document.querySelector('nav');
+    const cards = document.querySelectorAll('.card-theme');
+    const textMains = document.querySelectorAll('.text-content-main');
+    const textSubs = document.querySelectorAll('.text-content-sub');
+    const borders = document.querySelectorAll('.border-theme');
+    const themeIcon = document.getElementById('themeIcon');
+    const logoText = document.querySelector('.logo-text-theme');
+    const btnBack = document.querySelector('.btn-back-theme');
+    
+    if (body.classList.contains('bg-gray-950')) {
+        // LIGHT MODE
+        body.classList.replace('bg-gray-950', 'bg-gray-100');
+        body.classList.replace('text-gray-100', 'text-gray-900');
+        nav.classList.add('light-theme', 'bg-white/80', 'border-gray-200');
+        logoText.classList.replace('text-green-400', 'text-green-600');
+        btnBack.classList.replace('text-gray-400', 'text-green-600');
+        
+        cards.forEach(c => {
+            c.classList.replace('bg-gray-900', 'bg-white');
+            c.classList.replace('border-gray-800', 'border-gray-200');
         });
-    </script>
+        
+        textMains.forEach(t => t.classList.replace('text-white', 'text-gray-900'));
+        textSubs.forEach(t => t.classList.replace('text-gray-400', 'text-gray-600'));
+        borders.forEach(b => b.classList.replace('border-gray-900', 'border-gray-200'));
+        
+        themeIcon.innerText = "🌙";
+        localStorage.setItem('theme', 'light');
+    } else {
+        // DARK MODE
+        body.classList.replace('bg-gray-100', 'bg-gray-950');
+        body.classList.replace('text-gray-900', 'text-gray-100');
+        nav.classList.remove('light-theme', 'bg-white/80', 'border-gray-200');
+        logoText.classList.replace('text-green-600', 'text-green-400');
+        btnBack.classList.replace('text-gray-600', 'text-gray-400');
+        
+        cards.forEach(c => {
+            c.classList.replace('bg-white', 'bg-gray-900');
+            c.classList.replace('border-gray-200', 'border-gray-800');
+        });
+        
+        textMains.forEach(t => t.classList.replace('text-gray-900', 'text-white'));
+        textSubs.forEach(t => t.classList.replace('text-gray-600', 'text-gray-400'));
+        borders.forEach(b => b.classList.replace('border-gray-200', 'border-gray-900'));
+        
+        themeIcon.innerText = "☀️";
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+reveals.forEach(el => io.observe(el));
+</script>
+
+<script>
+    const TVE_TOKEN_ADDRESS = "0xa5CF2B6A6E333924ECFaA5C9566578DA7cD571f7";
+    const MERCHANT_WALLET   = "0x08426D97b96601299b95dDd9d4DBAe157Bf5F013";
+    const ERC20_ABI = ["function transfer(address to, uint256 amount) public returns (bool)"];
+
+    async function redeemShopItem(itemName, priceInTVE) {
+        if (!window.ethereum) { alert("ไม่พบ Web3 Wallet กรุณาติดตั้ง MetaMask เพื่อทำการแลกสินค้า"); return; }
+        try {
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer   = await provider.getSigner();
+            const tokenContract = new ethers.Contract(TVE_TOKEN_ADDRESS, ERC20_ABI, signer);
+            const amountToSend  = ethers.parseUnits(priceInTVE.toString(), 18);
+            
+            alert(`🔮 กำลังดำเนินการชำระเหรียญผ่านบล็อกเชนเพื่อแลกรับ: ${itemName}\nจำนวนเงิน: ${priceInTVE} TVE`);
+            const tx = await tokenContract.transfer(MERCHANT_WALLET, amountToSend);
+            
+            alert("ส่งธุรกรรมขึ้นสู่เครือข่ายบล็อกเชนสำเร็จรอยืนยัน บล็อกเชน Tx Hash: " + tx.hash);
+            await tx.wait();
+            
+            const itemCode = "TVE-SHOP-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+            alert(`🎉 แลกรับเสร็จสมบูรณ์!\nรหัสยืนยันของคุณคือ: ${itemCode}\n(กรุณาเก็บรหัสนี้เพื่อนำไปแจ้งสิทธิ์กับทางผู้ดูแลระบบหลักครับ)`);
+        } catch (error) { 
+            alert("ธุรกรรมถูกยกเลิก หรือยอดเหรียญ TVE ในกระเป๋าของคุณไม่เพียงพอ"); 
+        }
+    }
+
+    window.addEventListener('load', () => {
+        if(localStorage.getItem('theme') === 'light') { toggleTheme(); }
+    });
+</script>
 </body>
 </html>
