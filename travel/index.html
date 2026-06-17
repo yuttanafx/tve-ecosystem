@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVE Travel & Merits - เส้นทางสายบุญทั่วไทย</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.7.0/ethers.umd.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Prompt', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        
+        /* Floating Lotus Lanterns Animation */
+        .lotus-float {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0;
+            animation: lotusRise var(--dur, 6s) ease-in-out var(--delay, 0s) infinite;
+            pointer-events: none;
+        }
+        @keyframes lotusRise {
+            0%   { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
+            15%  { opacity: 0.6; }
+            85%  { opacity: 0.4; }
+            100% { transform: translateY(-180px) scale(1.1) rotate(15deg); opacity: 0; }
+        }
+
+        /* Pulse aura for sacred places */
+        .aura-pulse {
+            position: relative;
+        }
+        .aura-pulse::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 1rem;
+            border: 2px solid rgba(234, 179, 8, 0.3);
+            animation: aura 2s ease-out infinite;
+        }
+        @keyframes aura {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(1.06); opacity: 0; }
+        }
+
+        .card-glow {
+            transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+        }
+        .card-glow:hover {
+            box-shadow: 0 0 25px rgba(234, 179, 8, 0.15);
+            transform: translateY(-4px);
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible { opacity: 1; transform: none; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen overflow-x-hidden">
+
+<nav class="border-b border-gray-900 bg-gray-950/80 backdrop-blur sticky top-0 z-50 transition-colors [&.light-theme]:bg-white/80 [&.light-theme]:border-gray-200">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center max-w-6xl">
+        <div class="text-lg font-bold tracking-wider text-amber-400 flex items-center gap-2 logo-text-theme">
+            <span>🕌</span>
+            TVE TRAVEL & MERITS
+        </div>
+        <div class="flex items-center gap-4">
+            <button onclick="toggleTheme()" class="p-2 rounded-xl text-lg transition cursor-pointer flex items-center justify-center bg-gray-900/50 hover:bg-gray-800 border border-gray-800 theme-toggle-btn" title="สลับโหมดมืด/สว่าง">
+                <span id="themeIcon">☀️</span>
+            </button>
+            <a href="../" class="text-sm font-medium text-gray-400 hover:text-amber-400 transition flex items-center gap-1 btn-back-theme">
+                🔙 กลับหน้าหลัก Hub
+            </a>
+        </div>
+    </div>
+</nav>
+
+<header class="container mx-auto px-6 py-12 text-center max-w-4xl relative">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <span class="lotus-float" style="left:15%;bottom:10%;--dur:7s;--delay:0s">🪷</span>
+        <span class="lotus-float" style="left:35%;bottom:5%;--dur:5.5s;--delay:1.5s">✨</span>
+        <span class="lotus-float" style="left:65%;bottom:0%;--dur:8s;--delay:0.8s">🪷</span>
+        <span class="lotus-float" style="left:80%;bottom:8%;--dur:6.2s;--delay:2.2s">🕯️</span>
+    </div>
+
+    <div class="inline-block mb-4">
+        <div class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-4 py-1.5 rounded-full text-sm font-medium badge-theme">
+            🙏 อิ่มบุญ สุขใจ ร่วมขับเคลื่อนชุมชนท่องเที่ยวไทยด้วยบล็อกเชน
+        </div>
+    </div>
+
+    <h1 class="text-3xl md:text-5xl font-bold tracking-tight mb-4 bg-gradient-to-r from-white via-amber-100 to-amber-400 bg-clip-text text-transparent title-gradient-theme">
+        เส้นทางสายบุญ ปักหมุดวัดสวยทั่วไทย
+    </h1>
+    <p class="text-base text-gray-400 mb-6 max-w-2xl mx-auto text-content-sub">
+        ใช้เหรียญ TVE ที่ได้จากการขุดของคุณ แลกรับสิทธิ์ส่วนลดห้องพัก โรงแรม ร้านอาหาร และแพ็กเกจท่องเที่ยวเชิงวัฒนธรรม ไหว้พระทำบุญเสริมสิริมงคล
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-4 text-xs max-w-xl mx-auto">
+        <div class="bg-gray-900/80 border border-gray-800 rounded-xl px-4 py-2.5 flex-1 min-w-[140px] card-theme">
+            <div class="text-gray-400 text-content-sub mb-0.5">วัดและสถานที่เข้าร่วม</div>
+            <div class="text-amber-400 font-bold text-lg">45+ แห่งทั่วประเทศ</div>
+        </div>
+        <div class="bg-gray-900/80 border border-gray-800 rounded-xl px-4 py-2.5 flex-1 min-w-[140px] card-theme">
+            <div class="text-gray-400 text-content-sub mb-0.5">อัตราส่วนลดสูงสุด</div>
+            <div class="text-green-400 font-bold text-lg">30% - 50% OFF</div>
+        </div>
+    </div>
+</header>
+
+<main class="container mx-auto px-6 pb-16 max-w-6xl">
+    
+    <h2 class="text-xl md:text-2xl font-bold mb-6 text-center reveal text-content-main">
+        📌 ไฮไลท์เส้นทางสายบุญ & วัดสวยแนะนำ
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        
+        <div class="reveal bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden card-glow card-theme flex flex-col justify-between">
+            <div class="p-6">
+                <div class="text-3xl mb-3">🏔️</div>
+                <span class="bg-amber-500/10 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/20">ภาคเหนือ - เชียงราย</span>
+                <h3 class="text-lg font-bold text-white mt-2 mb-1 text-content-main">วัดร่องเสือเต้น (วัดน้ำเงิน)</h3>
+                <p class="text-gray-400 text-xs leading-relaxed text-content-sub">ชมประติมากรรมพุทธศิลป์ร่วมสมัย โดดเด่นด้วยวิหารสีน้ำเงินครามงดงามวิจิตรตระการตา และร่วมทำบุญหนุนดวงชะตาให้ชีวิตราบรื่น</p>
+            </div>
+            <div class="p-6 pt-0">
+                <div class="text-xs text-gray-500 mb-2 flex justify-between text-content-sub"><span>🏨 โรงแรมใกล้เคียงที่ร่วมรายการ:</span> <span class="text-amber-400 font-medium">5 แห่ง</span></div>
+                <button onclick="showRoute('วัดร่องเสือเต้น')" class="w-full text-center bg-gray-800 hover:bg-gray-700 text-amber-400 border border-amber-500/20 font-semibold py-2 rounded-xl text-xs transition duration-200 btn-action-theme">ดูรายละเอียดพิกัด ↗</button>
+            </div>
+        </div>
+
+        <div class="reveal bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden card-glow card-theme flex flex-col justify-between aura-pulse">
+            <div class="p-6">
+                <div class="text-3xl mb-3">🌅</div>
+                <span class="bg-amber-500/10 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/20">ภาคกลาง - อยุธยา</span>
+                <h3 class="text-lg font-bold text-white mt-2 mb-1 text-content-main">วัดไชยวัฒนาราม</h3>
+                <p class="text-gray-400 text-xs leading-relaxed text-content-sub">ย้อนเวลาชมความยิ่งใหญ่ของโบราณสถานริมแม่น้ำเจ้าพระยา ร่วมกิจกรรมห่มผ้าพระประธาน สวดมนต์เย็น เสริมบุญบารมีและความมั่นคงในหน้าที่การงาน</p>
+            </div>
+            <div class="p-6 pt-0">
+                <div class="text-xs text-gray-500 mb-2 flex justify-between text-content-sub"><span>🏨 โรงแรมใกล้เคียงที่ร่วมรายการ:</span> <span class="text-amber-400 font-medium">8 แห่ง</span></div>
+                <button onclick="showRoute('วัดไชยวัฒนาราม')" class="w-full text-center bg-gray-800 hover:bg-gray-700 text-amber-400 border border-amber-500/20 font-semibold py-2 rounded-xl text-xs transition duration-200 btn-action-theme">ดูรายละเอียดพิกัด ↗</button>
+            </div>
+        </div>
+
+        <div class="reveal bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden card-glow card-theme flex flex-col justify-between">
+            <div class="p-6">
+                <div class="text-3xl mb-3">🌊</div>
+                <span class="bg-amber-500/10 text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded border border-amber-500/20">ภาคตะวันออก - จันทบุรี</span>
+                <h3 class="text-lg font-bold text-white mt-2 mb-1 text-content-main">วัดปากน้ำแขมหนู (โบสถ์เซรามิก)</h3>
+                <p class="text-gray-400 text-xs leading-relaxed text-content-sub">ตื่นตากับอุโบสถสีน้ำเงินขาวที่ทนน้ำเค็มชายฝั่งทะเล ทำจากเซรามิกสะท้อนแสงแดดงดงาม แวะทำบุญกระเบื้องหลังคาโบสถ์เพื่อความร่มเย็นเป็นสุข</p>
+            </div>
+            <div class="p-6 pt-0">
+                <div class="text-xs text-gray-500 mb-2 flex justify-between text-content-sub"><span>🏨 โรงแรมใกล้เคียงที่ร่วมรายการ:</span> <span class="text-amber-400 font-medium">4 แห่ง</span></div>
+                <button onclick="showRoute('วัดปากน้ำแขมหนู')" class="w-full text-center bg-gray-800 hover:bg-gray-700 text-amber-400 border border-amber-500/20 font-semibold py-2 rounded-xl text-xs transition duration-200 btn-action-theme">ดูรายละเอียดพิกัด ↗</button>
+            </div>
+        </div>
+
+    </div>
+
+    <h2 class="text-xl md:text-2xl font-bold mb-6 text-center reveal text-content-main">
+        🎫 ระบบแลกส่วนลดที่พัก & อาหารด้วยเหรียญ TVE
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl flex flex-col justify-between card-theme">
+            <div>
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-2xl">🏨</span>
+                    <span class="bg-green-500/10 text-green-400 text-xs font-bold px-2 py-1 rounded">คูปองดิจิทัล</span>
+                </div>
+                <h3 class="text-base font-bold text-white mb-1 text-content-main">ส่วนลดโรงแรม & โฮมสเตย์สายบุญ 30%</h3>
+                <p class="text-gray-400 text-xs mb-4 text-content-sub">ใช้พักผ่อนในจังหวัดเชียงราย อยุธยา หรือจันทบุรี ใกล้เขตโบราณสถานและวัดสำคัญ เดินทางไปทำบุญตอนเช้าตักบาตรได้สะดวกสบาย</p>
+            </div>
+            <div class="border-t border-gray-800/80 pt-4 mt-2 border-theme">
+                <div class="flex justify-between text-xs mb-3"><span class="text-gray-400 text-content-sub">🪙 ยอดที่ต้องใช้ชำระ:</span><span class="text-amber-400 font-bold text-sm">350 TVE</span></div>
+                <button onclick="redeemVoucher('คูปองส่วนลดที่พัก 30%', 350)" class="w-full bg-amber-500 hover:bg-amber-400 text-gray-950 font-bold py-2.5 rounded-xl text-xs transition duration-200 shadow-md cursor-pointer">แลกรับคูปองที่พัก 🪙</button>
+            </div>
+        </div>
+
+        <div class="reveal bg-gray-900 border border-gray-800 p-6 rounded-2xl flex flex-col justify-between card-theme">
+            <div>
+                <div class="flex justify-between items-start mb-3">
+                    <span class="text-2xl">🍽️</span>
+                    <span class="bg-green-500/10 text-green-400 text-xs font-bold px-2 py-1 rounded">คูปองดิจิทัล</span>
+                </div>
+                <h3 class="text-base font-bold text-white mb-1 text-content-main">บัตรกำนัลอาหารและเครื่องดื่ม มูลค่า 200 บาท</h3>
+                <p class="text-gray-400 text-xs mb-4 text-content-sub">ใช้แทนเงินสด ณ ร้านอาหารออร์แกนิก คาเฟ่วิววัดสวย และร้านอาหารพื้นเมืองที่ร่วมรายการในเส้นทางท่องเที่ยวสายทำบุญ</p>
+            </div>
+            <div class="border-t border-gray-800/80 pt-4 mt-2 border-theme">
+                <div class="flex justify-between text-xs mb-3"><span class="text-gray-400 text-content-sub">🪙 ยอดที่ต้องใช้ชำระ:</span><span class="text-amber-400 font-bold text-sm">200 TVE</span></div>
+                <button onclick="redeemVoucher('บัตรกำนัลอาหาร 200 บาท', 200)" class="w-full bg-amber-500 hover:bg-amber-400 text-gray-950 font-bold py-2.5 rounded-xl text-xs transition duration-200 shadow-md cursor-pointer">แลกรับบัตรอาหาร 🪙</button>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<footer class="border-t border-gray-900 py-8 text-center text-xs text-gray-600 border-theme"><p>© 2026 TVE Ecosystem Project. All Rights Reserved.</p></footer>
+
+<script>
+function toggleTheme() {
+    const body = document.body;
+    const nav = document.querySelector('nav');
+    const cards = document.querySelectorAll('.card-theme');
+    const textMains = document.querySelectorAll('.text-content-main');
+    const textSubs = document.querySelectorAll('.text-content-sub');
+    const borders = document.querySelectorAll('.border-theme');
+    const btnActions = document.querySelectorAll('.btn-action-theme');
+    const themeIcon = document.getElementById('themeIcon');
+    const logoText = document.querySelector('.logo-text-theme');
+    const btnBack = document.querySelector('.btn-back-theme');
+    
+    if (body.classList.contains('bg-gray-950')) {
+        // LIGHT MODE
+        body.classList.replace('bg-gray-950', 'bg-gray-100');
+        body.classList.replace('text-gray-100', 'text-gray-900');
+        nav.classList.add('light-theme', 'bg-white/80', 'border-gray-200');
+        logoText.classList.replace('text-amber-400', 'text-amber-600');
+        btnBack.classList.replace('text-gray-400', 'text-gray-600');
+        
+        cards.forEach(c => {
+            c.classList.replace('bg-gray-900', 'bg-white');
+            c.classList.replace('border-gray-800', 'border-gray-200');
+        });
+        
+        textMains.forEach(t => t.classList.replace('text-white', 'text-gray-900'));
+        textSubs.forEach(t => t.classList.replace('text-gray-400', 'text-gray-600'));
+        borders.forEach(b => b.classList.replace('border-gray-900', 'border-gray-200'));
+        btnActions.forEach(btn => {
+            btn.classList.replace('bg-gray-800', 'bg-gray-100');
+            btn.classList.replace('text-amber-400', 'text-amber-600');
+        });
+        
+        themeIcon.innerText = "🌙";
+        localStorage.setItem('theme', 'light');
+    } else {
+        // DARK MODE
+        body.classList.replace('bg-gray-100', 'bg-gray-950');
+        body.classList.replace('text-gray-900', 'text-gray-100');
+        nav.classList.remove('light-theme', 'bg-white/80', 'border-gray-200');
+        logoText.classList.replace('text-amber-600', 'text-amber-400');
+        btnBack.classList.replace('text-gray-600', 'text-gray-400');
+        
+        cards.forEach(c => {
+            c.classList.replace('bg-white', 'bg-gray-900');
+            c.classList.replace('border-gray-200', 'border-gray-800');
+        });
+        
+        textMains.forEach(t => t.classList.replace('text-gray-900', 'text-white'));
+        textSubs.forEach(t => t.classList.replace('text-gray-600', 'text-gray-400'));
+        borders.forEach(b => b.classList.replace('border-gray-200', 'border-gray-900'));
+        btnActions.forEach(btn => {
+            btn.classList.replace('bg-gray-100', 'bg-gray-800');
+            btn.classList.replace('text-amber-600', 'text-amber-400');
+        });
+        
+        themeIcon.innerText = "☀️";
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+function showRoute(templeName) {
+    alert(`🗺️ กำลังดึงพิกัด GPS และเส้นทางท่องเที่ยวรอบๆ: ${templeName}`);
+}
+
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+reveals.forEach(el => io.observe(el));
+</script>
+
+<script>
+    const TVE_TOKEN_ADDRESS = "0xa5CF2B6A6E333924ECFaA5C9566578DA7cD571f7";
+    const MERCHANT_WALLET   = "0x08426D97b96601299b95dDd9d4DBAe157Bf5F013";
+    const ERC20_ABI = ["function transfer(address to, uint256 amount) public returns (bool)"];
+
+    async function redeemVoucher(itemName, priceInTVE) {
+        if (!window.ethereum) { alert("ไม่พบ Web3 Wallet กรุณาติดตั้ง MetaMask เพื่อทำธุรกรรม"); return; }
+        try {
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer   = await provider.getSigner();
+            const tokenContract = new ethers.Contract(TVE_TOKEN_ADDRESS, ERC20_ABI, signer);
+            const amountToSend  = ethers.parseUnits(priceInTVE.toString(), 18);
+            
+            alert(`🔮 ระบบกำลังเชื่อมต่อบล็อกเชนเพื่อแลกรับ: ${itemName}\nจำนวนเงิน: ${priceInTVE} TVE`);
+            const tx = await tokenContract.transfer(MERCHANT_WALLET, amountToSend);
+            
+            alert("ส่งธุรกรรมเข้าสู่เครือข่ายแล้วรอยืนยัน บล็อกเชน Tx Hash: " + tx.hash);
+            await tx.wait();
+            
+            const voucherCode = "MERIT-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+            alert(`🎉 แลกรับสำเร็จ!\nรหัสคูปองของคุณคือ: ${voucherCode}\n(กรุณาแคปหน้าจอเพื่อนำไปแสดง ณ จุดลงทะเบียน/ร้านค้า)`);
+        } catch (error) { 
+            alert("ธุรกรรมถูกยกเลิก หรือยอดเหรียญ TVE ของคุณไม่เพียงพอ"); 
+        }
+    }
+
+    window.addEventListener('load', () => {
+        if(localStorage.getItem('theme') === 'light') { toggleTheme(); }
+    });
+</script>
+</body>
+</html>
