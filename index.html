@@ -12,6 +12,7 @@
     <style>
         body { font-family: 'Prompt', sans-serif; transition: background-color 0.3s, color 0.3s; }
 
+        /* ไอคอนสลับโหมดสีขาวควันบุหรี่ */
         .theme-toggle-btn { color: #f5f5f5; background-color: rgba(245, 245, 245, 0.05); border: 1px solid rgba(245, 245, 245, 0.1); }
         .theme-toggle-btn:hover { background-color: rgba(245, 245, 245, 0.15); }
 
@@ -133,23 +134,18 @@
 
 <canvas id="particle-canvas"></canvas>
 
-<!-- NAV BAR -->
 <nav class="border-b border-gray-900 bg-gray-950/80 backdrop-blur sticky top-0 z-50 transition-colors [&.light-theme]:bg-white/80 [&.light-theme]:border-gray-200 w-full overflow-hidden">
     <div class="container mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center max-w-6xl w-full">
         <div class="text-base md:text-lg font-bold tracking-wider text-green-400 flex items-center gap-1.5 logo-text-theme shrink-0">
             <span class="pickaxe-swing text-lg md:text-xl">⛏️</span>
             TVE ECOSYSTEM
         </div>
-        <div class="flex items-center gap-1.5 md:gap-3 shrink-0">
-            <!-- 🌐 ปุ่มสลับภาษา TH / EN -->
-            <button onclick="toggleLanguage()" class="theme-toggle-btn px-2.5 rounded-xl text-xs md:text-sm font-semibold transition cursor-pointer flex items-center justify-center h-10 border border-gray-800 text-gray-300 hover:text-green-400 [&.light-toggle]:border-gray-300 [&.light-toggle]:bg-gray-200 [&.light-toggle]:text-gray-800" id="langBtn">
-                🇺🇸 EN
-            </button>
+        <div class="flex items-center gap-2 md:gap-4 shrink-0">
             <button onclick="toggleTheme()" class="theme-toggle-btn p-2 rounded-xl text-base md:text-lg transition cursor-pointer flex items-center justify-center h-10 w-10 [&.light-toggle]:border-gray-300 [&.light-toggle]:bg-gray-200 [&.light-toggle]:text-gray-800" title="สลับโหมดมืด/สว่าง" id="mainThemeBtn">
                 <span id="themeIcon">☀️</span>
             </button>
             <button id="connectWalletBtn" onclick="connectWallet()" class="bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-3 md:px-4 py-2 rounded-xl text-xs md:text-sm transition duration-200 flex items-center gap-1.5 shadow-md shadow-green-500/10 cursor-pointer h-10">
-                <span>🦊</span> <span data-lang="connectWallet">Connect Wallet</span>
+                <span>🦊</span> <span class="hidden sm:inline">Connect Wallet</span><span class="inline sm:hidden">Connect</span>
             </button>
             <div id="walletAddressDisplay" class="hidden bg-gray-900 border border-gray-800 text-green-400 px-3 py-2 rounded-xl text-[11px] md:text-xs font-mono inner-box-theme border-theme h-10 flex items-center">
                 Not Connected
@@ -158,7 +154,6 @@
     </div>
 </nav>
 
-<!-- HERO -->
 <header class="container mx-auto px-4 md:px-6 py-12 md:py-16 text-center max-w-4xl relative w-full overflow-hidden">
     <div class="blockchain-bg rounded-3xl">
         <div class="node-grid"></div>
@@ -173,15 +168,15 @@
     </div>
 
     <div class="pulse-ring inline-block mb-4 md:mb-6">
-        <div data-lang="heroBadge" class="bg-green-500/10 text-green-400 border border-green-500/20 px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-medium badge-hero-theme max-w-[90vw] truncate">
+        <div class="bg-green-500/10 text-green-400 border border-green-500/20 px-3 md:px-4 py-1.5 rounded-full text-xs md:text-sm font-medium badge-hero-theme max-w-[90vw] truncate">
             🚀 Welcome to TVE Decentralized Platform
         </div>
     </div>
 
-    <h1 data-lang="heroTitle" class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight mb-4 md:mb-6 text-white text-content-main leading-tight" id="mainHeaderTitle">
+    <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight mb-4 md:mb-6 text-white text-content-main leading-tight" id="mainHeaderTitle">
         ขุดเหรียญ พัฒนาชีวิต <br class="hidden md:block"> ขับเคลื่อนด้วยเทคโนโลยี
     </h1>
-    <p data-lang="heroDesc" class="text-sm md:text-lg text-gray-400 mb-6 md:mb-8 max-w-2xl mx-auto text-content-sub px-2">
+    <p class="text-sm md:text-lg text-gray-400 mb-6 md:mb-8 max-w-2xl mx-auto text-content-sub px-2">
         ยินดีต้อนรับสู่ศูนย์กลางระบบนิเวศที่คุณสามารถขุดเหรียญเพื่อนำไปใช้แลกเปลี่ยนสินค้า นวัตกรรมฟาร์ม อาหารเพื่อสุขภาพ และเครื่องใช้ในชีวิตประจำวันได้จริง รหัสผ่านสำหรับการขุดเฉพาะผู้ใช้เครื่อง Ion Storage Power และผู้ถูกเชิญจากบริษัทเท่านั้น
     </p>
 
@@ -189,26 +184,26 @@
         <div class="bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 flex items-center justify-between sm:justify-start gap-2 card-theme shadow-md">
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
-                <span data-lang="minersOnline" class="text-gray-400 text-content-sub">Miners Online:</span>
+                <span class="text-gray-400 text-content-sub">Miners Online:</span>
             </div>
             <span class="text-green-400 font-bold">2,841</span>
         </div>
         <div class="bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 flex items-center justify-between sm:justify-start gap-2 card-theme shadow-md">
-            <span data-lang="tvePriceLabel" class="text-gray-400 text-content-sub">TVE Price:</span>
-            <span data-lang="tvePriceValue" class="text-green-400 font-bold">โบนัส สมนาคุณเท่านั้น</span>
+            <span class="text-gray-400 text-content-sub">TVE Price:</span>
+            <span class="text-green-400 font-bold">โบนัส สมนาคุณเท่านั้น</span>
         </div>
         <div class="bg-gray-900 border border-gray-800 rounded-xl px-4 py-2.5 flex items-center justify-between sm:justify-start gap-2 card-theme shadow-md">
-            <span data-lang="blocksLabel" class="text-gray-400 text-content-sub">Blocks:</span>
+            <span class="text-gray-400 text-content-sub">Blocks:</span>
             <span class="text-green-400 font-bold">#<span id="blockCount">104,291</span></span>
         </div>
     </div>
 
     <div class="flex flex-col sm:flex-row justify-center gap-3 md:gap-4 px-4">
-        <a id="btnStartMining" href="https://tvet-mining.vercel.app/" target="_blank" class="bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-6 md:px-8 py-3.5 md:py-4 rounded-xl transition duration-300 transform hover:-translate-y-1 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2 text-sm md:text-base">
-            <span class="pickaxe-swing">⛏️</span> <span data-lang="btnStartMining">เริ่มขุดเหรียญตอนนี้</span>
+        <a href="https://tvet-mining.vercel.app/" target="_blank" class="bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-6 md:px-8 py-3.5 md:py-4 rounded-xl transition duration-300 transform hover:-translate-y-1 shadow-lg shadow-green-500/20 flex items-center justify-center gap-2 text-sm md:text-base">
+            <span class="pickaxe-swing">⛏️</span> เริ่มขุดเหรียญตอนนี้
         </a>
-        <a id="btnCommunity" href="https://line.me/ti/g2/9ag-6HsRYJa-AScrLj_y01WGQeyvKERv97LaMA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="bg-green-500/10 hover:bg-green-500/20 text-green-400 border border-green-500/30 px-6 md:px-8 py-3.5 md:py-4 rounded-xl font-semibold transition duration-300 btn-secondary-theme flex items-center justify-center gap-2 text-sm md:text-base">
-            🔄 <span data-lang="btnCommunity">ชุมชนแลกเปลี่ยนสินค้า</span>
+        <a href="https://line.me/ti/g2/9ag-6HsRYJa-AScrLj_y01WGQeyvKERv97LaMA?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="bg-green-500/10 hover:bg-green-500/20 text-green-400 border border-green-500/30 px-6 md:px-8 py-3.5 md:py-4 rounded-xl font-semibold transition duration-300 btn-secondary-theme flex items-center justify-center gap-2 text-sm md:text-base">
+            🔄 ชุมชนแลกเปลี่ยนสินค้า
         </a>
     </div>
 </header>
@@ -216,28 +211,28 @@
 <!-- ECOSYSTEM FLOW -->
 <section class="bg-gray-900/50 border-y border-gray-900 py-10 md:py-12 mb-12 md:mb-16 reveal border-theme section-flow-theme w-full">
     <div class="container mx-auto px-4 md:px-6 max-w-5xl">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center relative">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center relative">
             <div class="p-5 md:p-6 bg-gray-950 border border-gray-900 rounded-2xl relative inner-box-theme border-theme">
                 <div class="text-3xl md:text-4xl mb-2.5 pickaxe-swing">⛏️</div>
                 <div class="text-[10px] md:text-xs uppercase tracking-widest text-green-400 font-semibold mb-1">STEP 1</div>
-                <h3 data-lang="step1Title" class="text-base md:text-lg font-semibold text-white mb-1 text-content-main">ขุดและสะสม</h3>
-                <p data-lang="step1Desc" class="text-xs md:text-sm text-gray-400 text-content-sub">เข้าสู่ระบบจำลองการขุดเพื่อรับเหรียญประจำแพลตฟอร์ม</p>
+                <h3 class="text-base md:text-lg font-semibold text-white mb-1 text-content-main">ขุดและสะสม</h3>
+                <p class="text-xs md:text-sm text-gray-400 text-content-sub">เข้าสู่ระบบจำลองการขุดเพื่อรับเหรียญประจำแพลตฟอร์ม</p>
             </div>
             <div class="p-5 md:p-6 bg-gray-950 border border-gray-900 rounded-2xl relative inner-box-theme border-theme">
                 <div class="text-3xl md:text-4xl mb-2.5" style="animation:bounce 2s ease-in-out infinite;display:inline-block">🔗</div>
                 <div class="text-[10px] md:text-xs uppercase tracking-widest text-green-400 font-semibold mb-1">STEP 2</div>
-                <h3 data-lang="step2Title" class="text-base md:text-lg font-semibold text-white mb-1 text-content-main">เชื่อมต่อกระเป๋า</h3>
-                <p data-lang="step2Desc" class="text-xs md:text-sm text-gray-400 text-content-sub">ผูก Wallet เพื่อเตรียมใช้เหรียญ TVE ในการทำธุรกรรม</p>
+                <h3 class="text-base md:text-lg font-semibold text-white mb-1 text-content-main">เชื่อมต่อกระเป๋า</h3>
+                <p class="text-xs md:text-sm text-gray-400 text-content-sub">ผูก Wallet เพื่อเตรียมใช้เหรียญ TVE ในการทำธุรกรรม</p>
             </div>
             <div class="p-5 md:p-6 bg-gray-950 border border-gray-900 rounded-2xl relative inner-box-theme border-theme">
                 <div class="text-3xl md:text-4xl mb-2.5">🛒</div>
                 <div class="text-[10px] md:text-xs uppercase tracking-widest text-green-400 font-semibold mb-1">STEP 3</div>
-                <h3 data-lang="step3Title" class="text-base md:text-lg font-semibold text-white mb-1 text-content-main">ใช้ซื้อสินค้า</h3>
-                <p data-lang="step3Desc" class="text-xs md:text-sm text-gray-400 text-content-sub">นำเหรียญที่ได้ไปแลกเปลี่ยนผักออร์แกนิก ยา และของใช้ในบ้าน</p>
+                <h3 class="text-base md:text-lg font-semibold text-white mb-1 text-content-main">ใช้ซื้อสินค้า</h3>
+                <p class="text-xs md:text-sm text-gray-400 text-content-sub">นำเหรียญที่ได้ไปแลกเปลี่ยนผักออร์แกนิก ยา และของใช้ในบ้าน</p>
             </div>
         </div>
         <div class="mt-8 md:mt-10 max-w-xl mx-auto px-2">
-            <div class="flex justify-between text-[11px] md:text-xs text-gray-500 mb-1"><span data-lang="progressLabel" class="text-content-sub">Ecosystem Progress</span><span class="text-green-400">68%</span></div>
+            <div class="flex justify-between text-[11px] md:text-xs text-gray-500 mb-1"><span class="text-content-sub">Ecosystem Progress</span><span class="text-green-400">68%</span></div>
             <div class="h-1.5 bg-gray-800 rounded-full overflow-hidden bar-bg-theme">
                 <div class="h-full bg-gradient-to-r from-green-600 to-green-400 rounded-full" style="width:68%"></div>
             </div>
@@ -247,7 +242,7 @@
 
 <!-- MAIN UTILITIES -->
 <main id="utilities" class="container mx-auto px-4 md:px-6 pb-12 max-w-6xl w-full overflow-hidden">
-    <h2 data-lang="hubTitle" class="text-xl md:text-3xl font-bold text-center mb-8 md:mb-12 reveal text-content-main px-2">
+    <h2 class="text-xl md:text-3xl font-bold text-center mb-8 md:mb-12 reveal text-content-main px-2">
         <span class="text-green-400">Ecosystem Hub</span> สินค้าและบริการในระบบนิเวศของเรา
     </h2>
 
@@ -256,32 +251,32 @@
         <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4 pickaxe-swing">⛏️</div>
-                <h3 data-lang="card1Title" class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">TVET Mining System</h3>
-                <p data-lang="card1Desc" class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">ระบบขุดเหรียญหลักของโปรเจกต์ เข้าไปจำลองการขุด คำนวณกำลังขุด และรับเหรียญเพื่อเอามาใช้ในมินิมาร์ทและบริการอื่นๆ</p>
+                <h3 class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">TVET Mining System</h3>
+                <p class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">ระบบขุดเหรียญหลักของโปรเจกต์ เข้าไปจำลองการขุด คำนวณกำลังขุด และรับเหรียญเพื่อเอามาใช้ในมินิมาร์ทและบริการอื่นๆ</p>
             </div>
-            <a data-lang="card1Btn" href="https://tvet-mining.vercel.app/" target="_blank" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2.5 md:py-3 rounded-xl transition duration-200 text-sm">เปิดระบบขุดเหรียญ ↗</a>
+            <a href="https://tvet-mining.vercel.app/" target="_blank" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2.5 md:py-3 rounded-xl transition duration-200 text-sm">เปิดระบบขุดเหรียญ ↗</a>
         </div>
 
         <!-- CARD 2 -->
         <div class="reveal bg-gray-900 border border-green-500/30 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden shadow-lg shadow-green-500/5 card-theme special-card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4" style="animation:bounce 2.8s ease-in-out infinite;display:inline-block">📦</div>
-                <h3 data-lang="card2Title" class="text-lg md:text-xl font-bold text-green-400 mb-2 group-hover:text-green-300 transition-colors">Industrial Mining Container</h3>
-                <p data-lang="card2Desc" class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">ระบบติดตามตู้คอนเทนเนอร์ขุดบิตคอยน์ระบบ Hydro-Cooled ประสิทธิภาพสูง ตรวจสอบสถานะการทำงาน แรงดันไฟฟ้า และความร้อนแบบเรียลไทม์</p>
+                <h3 class="text-lg md:text-xl font-bold text-green-400 mb-2 group-hover:text-green-300 transition-colors">Industrial Mining Container</h3>
+                <p class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">ระบบติดตามตู้คอนเทนเนอร์ขุดบิตคอยน์ระบบ Hydro-Cooled ประสิทธิภาพสูง ตรวจสอบสถานะการทำงาน แรงดันไฟฟ้า และความร้อนแบบเรียลไทม์</p>
             </div>
-            <a data-lang="card2Btn" href="https://terravolteco-mining.vercel.app/" target="_blank" class="w-full text-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-gray-950 font-bold py-2.5 md:py-3 rounded-xl transition duration-200 text-sm">ตรวจสอบสถานะตู้ขุด ↗</a>
+            <a href="https://terravolteco-mining.vercel.app/" target="_blank" class="w-full text-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-gray-950 font-bold py-2.5 md:py-3 rounded-xl transition duration-200 text-sm">ตรวจสอบสถานะตู้ขุด ↗</a>
         </div>
 
         <!-- CARD 3 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4" style="animation:bounce 2.5s ease-in-out infinite;display:inline-block">🥦</div>
-                <h3 data-lang="card3Title" class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">Smart Organic Farm</h3>
-                <p data-lang="card3Desc" class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">ระบบควบคุมอุณหภูมิโรงเรือนอัจฉริยะ (IoT) ผลิตผักออร์แกนิกคุณภาพสูง ปลอดสารพิษ ใช้เหรียญที่ขุดได้มาแลกซื้อผักสดส่งตรงถึงบ้าน</p>
+                <h3 class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">Smart Organic Farm</h3>
+                <p class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">ระบบควบคุมอุณหภูมิโรงเรือนอัจฉริยะ (IoT) ผลิตผักออร์แกนิกคุณภาพสูง ปลอดสารพิษ ใช้เหรียญที่ขุดได้มาแลกซื้อผักสดส่งตรงถึงบ้าน</p>
             </div>
             <div class="flex flex-col gap-2">
-                <a data-lang="btnRedeemTve" href="./farm" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2 md:py-2.5 rounded-xl text-xs md:text-sm transition duration-200">🪙 แลกด้วยเหรียญ TVE ↗</a>
-                <button data-lang="btnCashSoon" disabled class="w-full text-center bg-gray-800 text-gray-500 font-medium py-1.5 rounded-lg text-[11px] cursor-not-allowed border border-gray-700">💵 ชำระเงินสด (เร็ว ๆ นี้)</button>
+                <a href="./farm" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2 md:py-2.5 rounded-xl text-xs md:text-sm transition duration-200">🪙 แลกด้วยเหรียญ TVE ↗</a>
+                <button disabled class="w-full text-center bg-gray-800 text-gray-500 font-medium py-1.5 rounded-lg text-[11px] cursor-not-allowed border border-gray-700">💵 ชำระเงินสด (เร็ว ๆ นี้)</button>
             </div>
         </div>
 
@@ -289,12 +284,12 @@
         <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4" style="animation:pulse 2s ease-in-out infinite;display:inline-block">💊</div>
-                <h3 data-lang="card4Title" class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">Medical Nutrition</h3>
-                <p data-lang="card4Desc" class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">อาหารและโภชนาการที่เป็นยา แนะนำเมนูบำบัดโรค อาหารเสริมสารสกัดธรรมชาติ ปรึกษาโภชนาการและใช้เหรียญจ่ายแทนเงินสด</p>
+                <h3 class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">Medical Nutrition</h3>
+                <p class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">อาหารและโภชนาการที่เป็นยา แนะนำเมนูบำบัดโรค อาหารเสริมสารสกัดธรรมชาติ ปรึกษาโภชนาการและใช้เหรียญจ่ายแทนเงินสด</p>
             </div>
             <div class="flex flex-col gap-2">
-                <a data-lang="btnRedeemTve" href="./nutrition" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2 md:py-2.5 rounded-xl text-xs md:text-sm transition duration-200">🪙 แลกด้วยเหรียญ TVE ↗</a>
-                <button data-lang="btnCashSoon" disabled class="w-full text-center bg-gray-800 text-gray-500 font-medium py-1.5 rounded-lg text-[11px] cursor-not-allowed border border-gray-700">💵 ชำระเงินสด (เร็ว ๆ นี้)</button>
+                <a href="./nutrition" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2 md:py-2.5 rounded-xl text-xs md:text-sm transition duration-200">🪙 แลกด้วยเหรียญ TVE ↗</a>
+                <button disabled class="w-full text-center bg-gray-800 text-gray-500 font-medium py-1.5 rounded-lg text-[11px] cursor-not-allowed border border-gray-700">💵 ชำระเงินสด (เร็ว ๆ นี้)</button>
             </div>
         </div>
 
@@ -302,12 +297,12 @@
         <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4" style="animation:bounce 2.2s ease-in-out infinite 0.4s;display:inline-block">🔌</div>
-                <h3 data-lang="card5Title" class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">Smart Living Gadgets</h3>
-                <p data-lang="card5Desc" class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">ศูนย์รวมอุปกรณ์ Smart Home และเครื่องใช้ไฟฟ้าอัจฉริยะ มุ่งเน้นการฝึกอาชีพและเพิ่มทักษะความรู้ในการพัฒนาพลังงานหมุนเวียนเพื่อความยั่งยืน แลกซื้อชุดคิทอุปกรณ์ไปเรียนรู้ได้ด้วยเหรียญ TVE</p>
+                <h3 class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">Smart Living Gadgets</h3>
+                <p class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">ศูนย์รวมอุปกรณ์ Smart Home และเครื่องใช้ไฟฟ้าอัจฉริยะ มุ่งเน้นการฝึกอาชีพและเพิ่มทักษะความรู้ในการพัฒนาพลังงานหมุนเวียนเพื่อความยั่งยืน แลกซื้อชุดคิทอุปกรณ์ไปเรียนรู้ได้ด้วยเหรียญ TVE</p>
             </div>
             <div class="flex flex-col gap-2">
-                <a data-lang="btnRedeemTve" href="./shop" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2 md:py-2.5 rounded-xl text-xs md:text-sm transition duration-200">🪙 แลกด้วยเหรียญ TVE ↗</a>
-                <button data-lang="btnCashSoon" disabled class="w-full text-center bg-gray-800 text-gray-500 font-medium py-1.5 rounded-lg text-[11px] cursor-not-allowed border border-gray-700">💵 ชำระเงินสด (เร็ว ๆ นี้)</button>
+                <a href="./shop" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2 md:py-2.5 rounded-xl text-xs md:text-sm transition duration-200">🪙 แลกด้วยเหรียญ TVE ↗</a>
+                <button disabled class="w-full text-center bg-gray-800 text-gray-500 font-medium py-1.5 rounded-lg text-[11px] cursor-not-allowed border border-gray-700">💵 ชำระเงินสด (เร็ว ๆ นี้)</button>
             </div>
         </div>
 
@@ -315,12 +310,26 @@
         <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4" style="animation:bounce 2.4s ease-in-out infinite;display:inline-block">🕌</div>
-                <h3 data-lang="card6Title" class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">TVE Travel & Merits</h3>
-                <p data-lang="card6Desc" class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">เส้นทางท่องเที่ยวสายมูและสายบุญทั่วไทย เน้นปักหมุดวัดสวย ไหว้พระทำบุญ เสริมสิริมงคล พร้อมสิทธิ์ใช้เหรียญแลกรับส่วนลดโรงแรม ที่พัก และร้านอาหารชั้นนำ</p>
+                <h3 class="text-lg md:text-xl font-bold text-white mb-2 group-hover:text-green-400 transition-colors text-content-main">TVE Travel & Merits</h3>
+                <p class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">เส้นทางท่องเที่ยวสายมูและสายบุญทั่วไทย เน้นปักหมุดวัดสวย ไหว้พระทำบุญ เสริมสิริมงคล พร้อมสิทธิ์ใช้เหรียญแลกรับส่วนลดโรงแรม ที่พัก และร้านอาหารชั้นนำ</p>
             </div>
             <div class="flex flex-col gap-2">
-                <a data-lang="btnRedeemTve" href="./travel" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2 md:py-2.5 rounded-xl text-xs md:text-sm transition duration-200">🪙 แลกด้วยเหรียญ TVE ↗</a>
-                <button data-lang="btnCashSoon" disabled class="w-full text-center bg-gray-800 text-gray-500 font-medium py-1.5 rounded-lg text-[11px] cursor-not-allowed border border-gray-700">💵 ชำระเงินสด (เร็ว ๆ นี้)</button>
+                <a href="./travel" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2 md:py-2.5 rounded-xl text-xs md:text-sm transition duration-200">🪙 แลกด้วยเหรียญ TVE ↗</a>
+                <button disabled class="w-full text-center bg-gray-800 text-gray-500 font-medium py-1.5 rounded-lg text-[11px] cursor-not-allowed border border-gray-700">💵 ชำระเงินสด (เร็ว ๆ นี้)</button>
+            </div>
+        </div>
+
+        <!-- 🆕 CARD 7 (กล่องใบใหม่ที่เพิ่มเข้ามา) -->
+        <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme special-card-theme-2">
+            <div>
+                <div class="text-3xl md:text-4xl mb-3 md:mb-4 pulse-ring inline-block relative">
+                    <span class="relative z-10">📉</span>
+                </div>
+                <h3 class="text-lg md:text-xl font-bold text-green-400 mb-2 group-hover:text-green-300 transition-colors">TVE Option & Future Signals</h3>
+                <p class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 text-content-sub">ระบบแจ้งเตือนซิกแนลเทรดอัจฉริยะสำหรับตลาด Option และ Future บนบล็อกเชน ใช้เหรียญ TVE ที่ได้จากการขุดเพื่อเปิดใช้งานบริการรับซิกแนลได้ทันที</p>
+            </div>
+            <div class="flex flex-col gap-2">
+                <a href="https://option-tvesystem.vercel.app/" target="_blank" class="w-full text-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-gray-950 font-bold py-2.5 md:py-3 rounded-xl text-xs md:text-sm transition duration-200 flex items-center justify-center gap-1.5">🪙 แลกรับสิทธิ์ (100 TVE / 30 วัน) ↗</a>
             </div>
         </div>
     </div>
@@ -331,15 +340,15 @@
             <div class="text-4xl md:text-5xl relative z-10" style="animation:bounce 2s ease-in-out infinite">🔑</div>
             <div class="absolute w-16 h-16 md:w-20 md:h-20 rounded-full border border-green-500/20" style="animation:ringPulse 2s ease-out infinite"></div>
         </div>
-        <h3 data-lang="sigTitle" class="text-xl md:text-2xl font-bold text-white mb-2 text-content-main">TVE Signal Activation System</h3>
-        <p data-lang="sigDesc" class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 max-w-xl mx-auto text-content-sub px-1">นำเหรียญ TVE ที่ได้จากการขุดมาแลกรับ <span class="text-green-400 font-semibold">รหัสเข้าใช้งานระบบซิกแนล (Activation Code)</span> มีอายุการใช้งานยาวนานถึง 30 วันเต็มต่อการแลก 1 ครั้ง</p>
+        <h3 class="text-xl md:text-2xl font-bold text-white mb-2 text-content-main">TVE Signal Activation System</h3>
+        <p class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 max-w-xl mx-auto text-content-sub px-1">นำเหรียญ TVE ที่ได้จากการขุดมาแลกรับ <span class="text-green-400 font-semibold">รหัสเข้าใช้งานระบบซิกแนล (Activation Code)</span> มีอายุการใช้งานยาวนานถึง 30 วันเต็มต่อการแลก 1 ครั้ง</p>
         <div class="bg-gray-950 p-3.5 rounded-xl max-w-xs mx-auto mb-6 border border-gray-900 inner-box-theme border-theme">
             <div class="flex justify-between text-xs md:text-sm">
-                <span data-lang="sigCost" class="text-gray-400 text-content-sub">🪙 ค่าเปิดใช้งาน:</span>
-                <span class="text-green-400 font-bold">50 TVE / 30 <span data-lang="days">วัน</span></span>
+                <span class="text-gray-400 text-content-sub">🪙 ค่าเปิดใช้งาน:</span>
+                <span class="text-green-400 font-bold">50 TVE / 30 วัน</span>
             </div>
         </div>
-        <button onclick="redeemSignalCode(50)" data-lang="sigBtn" class="w-full sm:w-auto bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-6 py-3.5 rounded-xl transition duration-200 shadow-lg shadow-green-500/10 cursor-pointer text-xs md:text-sm">🪙 ใช้ 50 TVE แลกรับรหัสซิกแนล (30 วัน)</button>
+        <button onclick="redeemSignalCode(50)" class="w-full sm:w-auto bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-6 py-3.5 rounded-xl transition duration-200 shadow-lg shadow-green-500/10 cursor-pointer text-xs md:text-sm">🪙 ใช้ 50 TVE แลกรับรหัสซิกแนล (30 วัน)</button>
     </div>
 </main>
 
@@ -350,164 +359,28 @@
     <div class="flex items-start gap-3 mb-3">
         <span class="text-lg md:text-xl">🛡️</span>
         <div>
-            <h4 data-lang="pdpaTitle" class="text-xs md:text-sm font-bold text-white text-content-main">การคุ้มครองข้อมูลส่วนบุคคล (PDPA)</h4>
-            <p data-lang="pdpaDesc" class="text-[11px] md:text-xs text-gray-400 mt-1 leading-relaxed text-content-sub">แพลตฟอร์มของเราใช้คุกกี้เพื่อเพิ่มประสิทธิภาพ ประสบการณ์การใช้งาน และความปลอดภัยในการเชื่อมต่อ Web3 Wallet ตรวจสอบเงื่อนไขได้ที่ <a href="#" class="text-green-400 underline hover:text-green-300">นโยบายคุกกี้</a></p>
+            <h4 class="text-xs md:text-sm font-bold text-white text-content-main">การคุ้มครองข้อมูลส่วนบุคคล (PDPA)</h4>
+            <p class="text-[11px] md:text-xs text-gray-400 mt-1 leading-relaxed text-content-sub">แพลตฟอร์มของเราใช้คุกกี้เพื่อเพิ่มประสิทธิภาพ ประสบการณ์การใช้งาน และความปลอดภัยในการเชื่อมต่อ Web3 Wallet ตรวจสอบเงื่อนไขได้ที่ <a href="#" class="text-green-400 underline hover:text-green-300">นโยบายคุกกี้</a></p>
         </div>
     </div>
     
     <div id="pdpa-settings" class="hidden my-3 pt-3 border-t border-gray-900 border-theme text-[11px] md:text-xs space-y-2">
         <label class="flex items-center justify-between p-1.5 rounded hover:bg-gray-900/40 cursor-pointer">
-            <span data-lang="cookieReq" class="text-white text-content-main font-medium">1. คุกกี้ที่จำเป็น (Strictly Necessary)</span>
+            <span class="text-white text-content-main font-medium">1. คุกกี้ที่จำเป็น (Strictly Necessary)</span>
             <input type="checkbox" checked disabled class="accent-green-500 h-4 w-4">
         </label>
         <label class="flex items-center justify-between p-1.5 rounded hover:bg-gray-900/40 cursor-pointer">
-            <span data-lang="cookieAna" class="text-gray-400 text-content-sub">2. คุกกี้เพื่อการวิเคราะห์ (Analytics)</span>
+            <span class="text-gray-400 text-content-sub">2. คุกกี้เพื่อการวิเคราะห์ (Analytics)</span>
             <input type="checkbox" id="cookie-analytics" checked class="accent-green-500 h-4 w-4">
         </label>
     </div>
 
     <div class="flex items-center justify-end gap-2 mt-4 text-[11px] md:text-xs">
-        <button onclick="togglePdpaSettings()" class="text-gray-400 hover:text-white px-2.5 py-1.5 font-medium btn-secondary-theme cursor-pointer" id="pdpaSettingBtn" data-lang="pdpaSettingBtn">🛠️ ตั้งค่าคุกกี้</button>
-        <button onclick="acceptAllPdpa()" class="bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-3.5 py-1.5 rounded-xl transition cursor-pointer shadow-md shadow-green-500/10" data-lang="pdpaAcceptBtn">👍 ยอมรับทั้งหมด</button>
+        <button onclick="togglePdpaSettings()" class="text-gray-400 hover:text-white px-2.5 py-1.5 font-medium btn-secondary-theme cursor-pointer" id="pdpaSettingBtn">🛠️ ตั้งค่าคุกกี้</button>
+        <button onclick="acceptAllPdpa()" class="bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-3.5 py-1.5 rounded-xl transition cursor-pointer shadow-md shadow-green-500/10">👍 ยอมรับทั้งหมด</button>
     </div>
 </div>
 
-
-<!-- ========================================================= -->
-<!-- 📌 เพิ่มพจนานุกรมแปลภาษา MULTI-LANGUAGE DICTIONARY LOGIC -->
-<!-- ========================================================= -->
-<script>
-const translations = {
-    th: {
-        langBtn: "🇺🇸 EN",
-        connectWallet: "Connect Wallet",
-        heroBadge: "🚀 Welcome to TVE Decentralized Platform",
-        heroTitle: "ขุดเหรียญ พัฒนาชีวิต <br class='hidden md:block'> ขับเคลื่อนด้วยเทคโนโลยี",
-        heroDesc: "ยินดีต้อนรับสู่ศูนย์กลางระบบนิเวศที่คุณสามารถขุดเหรียญเพื่อนำไปใช้แลกเปลี่ยนสินค้า นวัตกรรมฟาร์ม อาหารเพื่อสุขภาพ และเครื่องใช้ในชีวิตประจำวันได้จริง รหัสผ่านสำหรับการขุดเฉพาะผู้ใช้เครื่อง Ion Storage Power และผู้ถูกเชิญจากบริษัทเท่านั้น",
-        minersOnline: "Miners Online:",
-        tvePriceLabel: "TVE Price:",
-        tvePriceValue: "โบนัส สมนาคุณเท่านั้น",
-        blocksLabel: "Blocks:",
-        btnStartMining: "เริ่มขุดเหรียญตอนนี้",
-        btnCommunity: "ชุมชนแลกเปลี่ยนสินค้า",
-        step1Title: "ขุดและสะสม",
-        step1Desc: "เข้าสู่ระบบจำลองการขุดเพื่อรับเหรียญประจำแพลตฟอร์ม",
-        step2Title: "เชื่อมต่อกระเป๋า",
-        step2Desc: "ผูก Wallet เพื่อเตรียมใช้เหรียญ TVE ในการทำธุรกรรม",
-        step3Title: "ใช้ซื้อสินค้า",
-        step3Desc: "นำเหรียญที่ได้ไปแลกเปลี่ยนผักออร์แกนิก ยา และของใช้ในบ้าน",
-        progressLabel: "Ecosystem Progress",
-        hubTitle: "<span class='text-green-400'>Ecosystem Hub</span> สินค้าและบริการในระบบนิเวศของเรา",
-        card1Title: "TVET Mining System",
-        card1Desc: "ระบบขุดเหรียญหลักของโปรเจกต์ เข้าไปจำลองการขุด คำนวณกำลังขุด และรับเหรียญเพื่อเอามาใช้ในมินิมาร์ทและบริการอื่นๆ",
-        card1Btn: "เปิดระบบขุดเหรียญ ↗",
-        card2Title: "Industrial Mining Container",
-        card2Desc: "ระบบติดตามตู้คอนเทนเนอร์ขุดบิตคอยน์ระบบ Hydro-Cooled ประสิทธิภาพสูง ตรวจสอบสถานะการทำงาน แรงดันไฟฟ้า และความร้อนแบบเรียลไทม์",
-        card2Btn: "ตรวจสอบสถานะตู้ขุด ↗",
-        card3Title: "Smart Organic Farm",
-        card3Desc: "ระบบควบคุมอุณหภูมิโรงเรือนอัจฉริยะ (IoT) ผลิตผักออร์แกนิกคุณภาพสูง ปลอดสารพิษ ใช้เหรียญที่ขุดได้มาแลกซื้อผักสดส่งตรงถึงบ้าน",
-        card4Title: "Medical Nutrition",
-        card4Desc: "อาหารและโภชนาการที่เป็นยา แนะนำเมนูบำบัดโรค อาหารเสริมสารสกัดธรรมชาติ ปรึกษาโภชนาการและใช้เหรียญจ่ายแทนเงินสด",
-        card5Title: "Smart Living Gadgets",
-        card5Desc: "ศูนย์รวมอุปกรณ์ Smart Home และเครื่องใช้ไฟฟ้าอัจฉริยะ มุ่งเน้นการฝึกอาชีพและเพิ่มทักษะความรู้ในการพัฒนาพลังงานหมุนเวียนเพื่อความยั่งยืน แลกซื้อชุดคิทอุปกรณ์ไปเรียนรู้ได้ด้วยเหรียญ TVE",
-        card6Title: "TVE Travel & Merits",
-        card6Desc: "เส้นทางท่องเที่ยวสายมูและสายบุญทั่วไทย เน้นปักหมุดวัดสวย ไหว้พระทำบุญ เสริมสิริมงคล พร้อมสิทธิ์ใช้เหรียญแลกรับส่วนลดโรงแรม ที่พัก และร้านอาหารชั้นนำ",
-        btnRedeemTve: "🪙 แลกด้วยเหรียญ TVE ↗",
-        btnCashSoon: "💵 ชำระเงินสด (เร็ว ๆ นี้)",
-        sigTitle: "TVE Signal Activation System",
-        sigDesc: "นำเหรียญ TVE ที่ได้จากการขุดมาแลกรับ <span class='text-green-400 font-semibold'>รหัสเข้าใช้งานระบบซิกแนล (Activation Code)</span> มีอายุการใช้งานยาวนานถึง 30 วันเต็มต่อการแลก 1 ครั้ง",
-        sigCost: "🪙 ค่าเปิดใช้งาน:",
-        days: "วัน",
-        sigBtn: "🪙 ใช้ 50 TVE แลกรับรหัสซิกแนล (30 วัน)",
-        pdpaTitle: "การคุ้มครองข้อมูลส่วนบุคคล (PDPA)",
-        pdpaDesc: "แพลตฟอร์มของเราใช้คุกกี้เพื่อเพิ่มประสิทธิภาพ ประสบการณ์การใช้งาน และความปลอดภัยในการเชื่อมต่อ Web3 Wallet ตรวจสอบเงื่อนไขได้ที่ <a href='#' class='text-green-400 underline hover:text-green-300'>นโยบายคุกกี้</a>",
-        cookieReq: "1. คุกกี้ที่จำเป็น (Strictly Necessary)",
-        cookieAna: "2. คุกกี้เพื่อการวิเคราะห์ (Analytics)",
-        pdpaSettingBtn: "🛠️ ตั้งค่าคุกกี้",
-        pdpaAcceptBtn: "👍 ยอมรับทั้งหมด",
-        pdpaSaveBtn: "💾 บันทึกค่า"
-    },
-    en: {
-        langBtn: "🇹🇭 TH",
-        connectWallet: "Connect Wallet",
-        heroBadge: "🚀 Welcome to TVE Decentralized Platform",
-        heroTitle: "Mine Tokens, Improve Life <br class='hidden md:block'> Driven by Technology",
-        heroDesc: "Welcome to the ecosystem hub where you can mine tokens to redeem products, smart farm organic goods, medical nutrition, and daily appliances. Mining access is exclusively reserved for Ion Storage Power users and official corporate invitees.",
-        minersOnline: "Miners Online:",
-        tvePriceLabel: "TVE Price:",
-        tvePriceValue: "Complimentary Bonus Only",
-        blocksLabel: "Blocks:",
-        btnStartMining: "Start Mining Now",
-        btnCommunity: "P2P Goods Community",
-        step1Title: "Mine & Accumulate",
-        step1Desc: "Access the simulation system to receive platform utility tokens.",
-        step2Title: "Connect Web3 Wallet",
-        step2Desc: "Link your crypto wallet to manage transactions within the ecosystem.",
-        step3Title: "Redeem Utilities",
-        step3Desc: "Use tokens to redeem organic vegetables, nutrition, and home appliances.",
-        progressLabel: "Ecosystem Progress",
-        hubTitle: "<span class='text-green-400'>Ecosystem Hub</span> Products & Services in Our System",
-        card1Title: "TVET Mining System",
-        card1Desc: "The core mining simulation engine. Calculate mining power, generate block rewards, and earn TVE tokens for ecosystem utilities.",
-        card1Btn: "Launch Mining App ↗",
-        card2Title: "Industrial Mining Container",
-        card2Desc: "Real-time infrastructure dashboard for our high-efficiency Hydro-Cooled Bitcoin mining containers. Monitor voltage, cooling, and operational status.",
-        card2Btn: "Monitor Container Status ↗",
-        card3Title: "Smart Organic Farm",
-        card3Desc: "IoT-controlled greenhouse automation producing premium, pesticide-free organic farm fresh produce. Use your mined TVE to redeem fresh vegetables directly to your door.",
-        card4Title: "Medical Nutrition",
-        card4Desc: "Therapeutic medical foods and premium natural dietary extracts. Consult nutritional guidelines and pay seamlessly with ecosystem utility tokens.",
-        card5Title: "Smart Living Gadgets",
-        card5Desc: "Smart Home appliances and eco-infrastructure. Focused on vocational learning and advanced clean-energy skills. Redeem DIY starter kits with TVE tokens.",
-        card6Title: "TVE Travel & Merits",
-        card6Desc: "Curated cultural and spiritual travel routes across Thailand. Discover historical temples and claim exclusive hotel, lodging, and restaurant discounts with TVE rewards.",
-        btnRedeemTve: "🪙 Redeem with TVE ↗",
-        btnCashSoon: "💵 Cash Payment (Coming Soon)",
-        sigTitle: "TVE Signal Activation System",
-        sigDesc: "Redeem your mined TVE tokens for an <span class='text-green-400 font-semibold'>Activation Code</span> providing 30 days of continuous access to the premium trade signal dashboard.",
-        sigCost: "🪙 Activation Cost:",
-        days: "Days",
-        sigBtn: "🪙 Use 50 TVE for Signal Code (30 Days)",
-        pdpaTitle: "Privacy Protection Consent (PDPA)",
-        pdpaDesc: "Our decentralized platform utilizes cookies to enhance optimization, UI performance, and secure Web3 cryptographic connections. View our <a href='#' class='text-green-400 underline hover:text-green-300'>Cookie Policy</a>",
-        cookieReq: "1. Strictly Necessary Cookies",
-        cookieAna: "2. Analytics Cookies",
-        pdpaSettingBtn: "🛠️ Cookie Settings",
-        pdpaAcceptBtn: "👍 Accept All",
-        pdpaSaveBtn: "💾 Save Preferences"
-    }
-};
-
-let currentLang = localStorage.getItem('tve_lang') || 'th';
-
-function applyLanguage(lang) {
-    document.querySelectorAll('[data-lang]').forEach(el => {
-        const key = el.getAttribute('data-lang');
-        if (translations[lang] && translations[lang][key]) {
-            el.innerHTML = translations[lang][key];
-        }
-    });
-    
-    // จัดการปุ่มเปลี่ยนภาษาส่วนตัว
-    document.getElementById('langBtn').innerText = translations[lang].langBtn;
-    
-    // เช็คกรณีปุ่มเซฟที่ป๊อปอัพเพื่อไม่ให้เพี้ยนซ้อน
-    const pdpaSettings = document.getElementById('pdpa-settings');
-    const pdpaSettingBtn = document.getElementById('pdpaSettingBtn');
-    if (pdpaSettingBtn && !pdpaSettings.classList.contains('hidden')) {
-        pdpaSettingBtn.innerText = translations[lang].pdpaSaveBtn;
-    }
-}
-
-function toggleLanguage() {
-    currentLang = currentLang === 'th' ? 'en' : 'th';
-    localStorage.setItem('tve_lang', currentLang);
-    applyLanguage(currentLang);
-}
-</script>
-
-
-<!-- ===== INTERSECTION OBSERVER & ANIMATION JS ===== -->
 <script>
 let globalThemeColor = "rgba(34,197,94,";
 
@@ -527,7 +400,6 @@ function toggleTheme() {
     const bannerCard = document.querySelector('.banner-card-theme');
     const mainThemeBtn = document.getElementById('mainThemeBtn');
     const mainHeaderTitle = document.getElementById('mainHeaderTitle');
-    const langBtn = document.getElementById('langBtn');
     
     if (body.classList.contains('bg-gray-950')) {
         body.classList.replace('bg-gray-950', 'bg-gray-100');
@@ -535,11 +407,10 @@ function toggleTheme() {
         nav.classList.add('light-theme', 'bg-white/80', 'border-gray-200');
         logoText.classList.replace('text-green-400', 'text-green-600');
         mainThemeBtn.classList.add('light-toggle');
-        if(langBtn) langBtn.classList.add('light-toggle');
         mainHeaderTitle.classList.replace('text-white', 'text-gray-900');
         
         cards.forEach(c => {
-            if(!c.classList.contains('special-card-theme')) {
+            if(!c.classList.contains('special-card-theme') && !c.classList.contains('special-card-theme-2')) {
                 c.classList.replace('bg-gray-900', 'bg-white');
                 c.classList.replace('border-gray-800', 'border-gray-200');
             } else {
@@ -571,12 +442,11 @@ function toggleTheme() {
         nav.classList.remove('light-theme', 'bg-white/80', 'border-gray-200');
         logoText.classList.replace('text-green-600', 'text-green-400');
         mainThemeBtn.classList.remove('light-toggle');
-        if(langBtn) langBtn.classList.remove('light-toggle');
         mainHeaderTitle.classList.replace('text-gray-900', 'text-white');
         
         cards.forEach(c => {
             c.classList.replace('bg-white', 'bg-gray-900');
-            if(!c.classList.contains('special-card-theme')) c.classList.replace('border-gray-200', 'border-gray-800');
+            if(!c.classList.contains('special-card-theme') && !c.classList.contains('special-card-theme-2')) c.classList.replace('border-gray-200', 'border-gray-800');
         });
         
         innerBoxes.forEach(b => {
@@ -693,8 +563,8 @@ reveals.forEach(el => io.observe(el));
             try {
                 const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 updateWalletUI(accounts[0]); return accounts[0];
-            } catch (error) { alert(currentLang === 'th' ? "การเชื่อมต่อกระเป๋าถูกปฏิเสธ" : "Wallet connection rejected"); }
-        } else { alert(currentLang === 'th' ? "ไม่พบ Web3 Wallet กรุณาติดตั้ง MetaMask" : "Web3 wallet not found. Please install MetaMask"); }
+            } catch (error) { alert("การเชื่อมต่อกระเป๋าถูกปฏิเสธ"); }
+        } else { alert("ไม่พบ Web3 Wallet กรุณาติดตั้ง MetaMask"); }
     }
     function updateWalletUI(account) {
         const shortAddress = account.substring(0, 5) + '...' + account.substring(account.length - 4);
@@ -703,7 +573,7 @@ reveals.forEach(el => io.observe(el));
         displayBox.classList.remove('hidden'); displayBox.innerText = '🟢 ' + shortAddress;
     }
     async function redeemSignalCode(priceInTVE) {
-        if (!window.ethereum) { alert(currentLang === 'th' ? "กรุณาติดตั้ง MetaMask" : "Please install MetaMask"); return; }
+        if (!window.ethereum) { alert("กรุณาติดตั้ง MetaMask"); return; }
         try {
             const provider = new ethers.BrowserProvider(window.ethereum);
             const signer   = await provider.getSigner();
@@ -712,16 +582,15 @@ reveals.forEach(el => io.observe(el));
             const tokenContract = new ethers.Contract(TVE_TOKEN_ADDRESS, ERC20_ABI, signer);
             const amountToSend  = ethers.parseUnits(priceInTVE.toString(), 18);
             
-            const msgConfirm = currentLang === 'th' ? `ระบบกำลังทำรายการแลกรหัสซิกแนล (เปิดใช้งาน 30 วัน)\nยอดชำระ: ${priceInTVE} TVE` : `Processing trade signal code activation (30 Days)\nPrice: ${priceInTVE} TVE`;
-            alert(msgConfirm);
+            alert(`ระบบกำลังทำรายการแลกรหัสซิกแนล (เปิดใช้งาน 30 วัน)\nยอดชำระ: ${priceInTVE} TVE`);
             const tx = await tokenContract.transfer(MERCHANT_WALLET, amountToSend);
-            alert(currentLang === 'th' ? "ส่งธุรกรรมเข้าบล็อกเชนแล้ว Tx Hash: " + tx.hash : "Transaction submitted Tx Hash: " + tx.hash);
+            alert("ส่งธุรกรรมเข้าบล็อกเชนแล้ว Tx Hash: " + tx.hash);
             await tx.wait();
             
             const generatedCode = "TVE30-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-            alert(currentLang === 'th' ? `🎉 สำเร็จ!\nรหัสซิกแนลของคุณ (อายุ 30 วัน) คือ: ${generatedCode}\nระบบจะนำทางคุณไปยังแพลตฟอร์มหลักครับ` : `🎉 Success!\nYour Signal Code (30 Days) is: ${generatedCode}\nSystem will redirect you to main dashboard.`);
+            alert(`🎉 สำเร็จ!\nรหัสซิกแนลของคุณ (อายุ 30 วัน) คือ: ${generatedCode}\nระบบจะนำทางคุณไปยังแพลตฟอร์มหลักครับ`);
             window.open("https://tvesystem.vercel.app/", "_blank");
-        } catch (error) { alert(currentLang === 'th' ? "ธุรกรรมถูกยกเลิก หรือยอดเหรียญ TVE ของคุณไม่เพียงพอ" : "Transaction cancelled or insufficient TVE balance"); }
+        } catch (error) { alert("ธุรกรรมถูกยกเลิก หรือยอดเหรียญ TVE ของคุณไม่เพียงพอ"); }
     }
 </script>
 
@@ -731,9 +600,6 @@ reveals.forEach(el => io.observe(el));
     const pdpaSettingBtn = document.getElementById('pdpaSettingBtn');
 
     window.addEventListener('load', () => {
-        // ประยุกต์ใช้ภาษาเริ่มต้น
-        applyLanguage(currentLang);
-
         if (!localStorage.getItem('tve_pdpa_consent')) {
             setTimeout(() => {
                 pdpaBanner.classList.remove('hidden');
@@ -754,7 +620,7 @@ reveals.forEach(el => io.observe(el));
     function togglePdpaSettings() {
         if (pdpaSettings.classList.contains('hidden')) {
             pdpaSettings.classList.remove('hidden');
-            pdpaSettingBtn.innerText = translations[currentLang].pdpaSaveBtn;
+            pdpaSettingBtn.innerText = "💾 บันทึกค่า";
         } else {
             acceptAllPdpa();
         }
@@ -767,8 +633,6 @@ reveals.forEach(el => io.observe(el));
         pdpaBanner.classList.add('translate-y-20', 'opacity-0');
         setTimeout(() => {
             pdpaBanner.classList.add('hidden');
-            pdpaSettings.classList.add('hidden');
-            pdpaSettingBtn.innerText = translations[currentLang].pdpaSettingBtn;
         }, 500);
     }
 </script>
