@@ -134,6 +134,7 @@
 
 <canvas id="particle-canvas"></canvas>
 
+<!-- NAV BAR -->
 <nav class="border-b border-gray-900 bg-gray-950/80 backdrop-blur sticky top-0 z-50 transition-colors [&.light-theme]:bg-white/80 [&.light-theme]:border-gray-200 w-full overflow-hidden">
     <div class="container mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center max-w-6xl w-full">
         <div class="text-base md:text-lg font-bold tracking-wider text-green-400 flex items-center gap-1.5 logo-text-theme shrink-0">
@@ -141,6 +142,7 @@
             TVE ECOSYSTEM
         </div>
         <div class="flex items-center gap-1.5 md:gap-3 shrink-0">
+            <!-- 🌐 ปุ่มสลับภาษา TH / EN -->
             <button onclick="toggleLanguage()" class="theme-toggle-btn px-2.5 rounded-xl text-xs md:text-sm font-semibold transition cursor-pointer flex items-center justify-center h-10 border border-gray-800 text-gray-300 hover:text-green-400 [&.light-toggle]:border-gray-300 [&.light-toggle]:bg-gray-200 [&.light-toggle]:text-gray-800" id="langBtn">
                 🇺🇸 EN
             </button>
@@ -157,6 +159,7 @@
     </div>
 </nav>
 
+<!-- HERO -->
 <header class="container mx-auto px-4 md:px-6 py-12 md:py-16 text-center max-w-4xl relative w-full overflow-hidden">
     <div class="blockchain-bg rounded-3xl">
         <div class="node-grid"></div>
@@ -211,6 +214,7 @@
     </div>
 </header>
 
+<!-- ECOSYSTEM FLOW -->
 <section class="bg-gray-900/50 border-y border-gray-900 py-10 md:py-12 mb-12 md:mb-16 reveal border-theme section-flow-theme w-full">
     <div class="container mx-auto px-4 md:px-6 max-w-5xl">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center relative">
@@ -242,12 +246,14 @@
     </div>
 </section>
 
+<!-- MAIN UTILITIES -->
 <main id="utilities" class="container mx-auto px-4 md:px-6 pb-12 max-w-6xl w-full overflow-hidden">
     <h2 data-lang="hubTitle" class="text-xl md:text-3xl font-bold text-center mb-8 md:mb-12 reveal text-content-main px-2">
         <span class="text-green-400">Ecosystem Hub</span> สินค้าและบริการในระบบนิเวศของเรา
     </h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+        <!-- CARD 1 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4 pickaxe-swing">⛏️</div>
@@ -257,6 +263,7 @@
             <a data-lang="card1Btn" href="https://tvet-mining.vercel.app/" target="_blank" class="w-full text-center bg-green-500 hover:bg-green-400 text-gray-950 font-bold py-2.5 md:py-3 rounded-xl transition duration-200 text-sm">เปิดระบบขุดเหรียญ ↗</a>
         </div>
 
+        <!-- CARD 2 -->
         <div class="reveal bg-gray-900 border border-green-500/30 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden shadow-lg shadow-green-500/5 card-theme special-card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4" style="animation:bounce 2.8s ease-in-out infinite;display:inline-block">📦</div>
@@ -266,6 +273,7 @@
             <a data-lang="card2Btn" href="https://terravolteco-mining.vercel.app/" target="_blank" class="w-full text-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-gray-950 font-bold py-2.5 md:py-3 rounded-xl transition duration-200 text-sm">ตรวจสอบสถานะตู้ขุด ↗</a>
         </div>
 
+        <!-- CARD 3 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4" style="animation:bounce 2.5s ease-in-out infinite;display:inline-block">🥦</div>
@@ -278,6 +286,7 @@
             </div>
         </div>
 
+        <!-- CARD 4 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4" style="animation:pulse 2s ease-in-out infinite;display:inline-block">💊</div>
@@ -290,6 +299,7 @@
             </div>
         </div>
 
+        <!-- CARD 5 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4" style="animation:bounce 2.2s ease-in-out infinite 0.4s;display:inline-block">🔌</div>
@@ -302,6 +312,7 @@
             </div>
         </div>
 
+        <!-- CARD 6 -->
         <div class="reveal bg-gray-900 border border-gray-800 p-5 md:p-6 rounded-2xl card-glow flex flex-col justify-between group relative overflow-hidden card-theme">
             <div>
                 <div class="text-3xl md:text-4xl mb-3 md:mb-4" style="animation:bounce 2.4s ease-in-out infinite;display:inline-block">🕌</div>
@@ -315,6 +326,7 @@
         </div>
     </div>
 
+    <!-- SIGNAL BANNER (จุดรวมศูนย์ลิงก์เทรดหลัก 50 TVE และลิงก์ออปชั่น 100 TVE ในกล่องเดียวกันตามรูป Capture1_2.JPG) -->
     <div class="mt-10 md:mt-12 reveal scan-card bg-gradient-to-r from-gray-900 to-green-950/40 border border-gray-800 rounded-2xl p-5 md:p-8 text-center max-w-3xl mx-auto banner-card-theme border-theme w-full">
         <div class="relative inline-flex items-center justify-center mb-3">
             <div class="text-4xl md:text-5xl relative z-10" style="animation:bounce 2s ease-in-out infinite">🔑</div>
@@ -323,9 +335,10 @@
         <h3 data-lang="sigTitle" class="text-xl md:text-2xl font-bold text-white mb-2 text-content-main">TVE Signal Activation System</h3>
         <p data-lang="sigDesc" class="text-gray-400 text-xs md:text-sm mb-5 md:mb-6 max-w-xl mx-auto text-content-sub px-1">นำเหรียญ TVE ที่ได้จากการขุดมาแลกรับ <span class="text-green-400 font-semibold">รหัสเข้าใช้งานระบบซิกแนล (Activation Code)</span> มีอายุการใช้งานยาวนานถึง 30 วันเต็มต่อการแลก 1 ครั้ง</p>
         
+        <!-- รายละเอียดสัดส่วนราคาของทั้งสองระบบ -->
         <div class="bg-gray-950 p-4 rounded-xl max-w-md mx-auto mb-6 border border-gray-900 inner-box-theme border-theme space-y-2 text-xs md:text-sm">
             <div class="flex justify-between items-center">
-                <span data-lang="sigCost" class="text-gray-400 text-content-sub">🪙 ค่าเปิดใช้งาน Signal Code:</span>
+                <span data-lang="sigCost" class="text-gray-400 text-content-sub">🪙 ค่าเปิดใช้งาน ซิกแนลเทรดหลัก:</span>
                 <span class="text-green-400 font-bold">50 TVE / 30 <span data-lang="days">วัน</span></span>
             </div>
             <div class="h-px bg-gray-900/60 border-theme"></div>
@@ -335,6 +348,7 @@
             </div>
         </div>
 
+        <!-- ปุ่มกดสีเขียวคู่เรียกสัญญา Web3 และ Redirect แยกลิงก์ปลายทาง -->
         <div class="flex flex-col sm:flex-row justify-center items-center gap-3 max-w-xl mx-auto">
             <button onclick="redeemSignalCode(50, 'MAIN')" data-lang="sigBtn" class="w-full bg-green-500 hover:bg-green-400 text-gray-950 font-bold px-5 py-3.5 rounded-xl transition duration-200 shadow-lg shadow-green-500/10 cursor-pointer text-xs md:text-sm">
                 🪙 ใช้ 50 TVE แลกรับรหัสซิกแนลหลัก (30 วัน)
@@ -348,6 +362,7 @@
 
 <footer class="border-t border-gray-900 py-6 md:py-8 text-center text-xs text-gray-600 relative z-10 border-theme"><p>© 2026 TVE Ecosystem Project. All Rights Reserved.</p></footer>
 
+<!-- PDPA CONSENT BANNER -->
 <div id="pdpa-banner" class="fixed bottom-4 right-4 left-4 md:left-auto md:max-w-md p-5 rounded-2xl border border-gray-800 bg-gray-950/90 backdrop-blur-xl shadow-2xl z-[9999] transition-all duration-500 transform translate-y-20 opacity-0 hidden card-theme border-theme">
     <div class="flex items-start gap-3 mb-3">
         <span class="text-lg md:text-xl">🛡️</span>
@@ -374,6 +389,9 @@
     </div>
 </div>
 
+<!-- ========================================================= -->
+<!-- 📌 MULTI-LANGUAGE DICTIONARY LOGIC พจนานุกรมแปลภาษา -->
+<!-- ========================================================= -->
 <script>
 const translations = {
     th: {
@@ -414,7 +432,7 @@ const translations = {
         btnCashSoon: "💵 ชำระเงินสด (เร็ว ๆ นี้)",
         sigTitle: "TVE Signal Activation System",
         sigDesc: "นำเหรียญ TVE ที่ได้จากการขุดมาแลกรับ <span class='text-green-400 font-semibold'>รหัสเข้าใช้งานระบบซิกแนล (Activation Code)</span> มีอายุการใช้งานยาวนานถึง 30 วันเต็มต่อการแลก 1 ครั้ง",
-        sigCost: "🪙 ค่าเปิดใช้งาน Signal Code:",
+        sigCost: "🪙 ค่าเปิดใช้งาน ซิกแนลเทรดหลัก:",
         sigOptCost: "📈 ค่าเปิดใช้งาน Option Signals:",
         days: "วัน",
         sigBtn: "🪙 ใช้ 50 TVE แลกรับรหัสซิกแนลหลัก (30 วัน)",
@@ -465,7 +483,7 @@ const translations = {
         btnCashSoon: "💵 Cash Payment (Coming Soon)",
         sigTitle: "TVE Signal Activation System",
         sigDesc: "Redeem your mined TVE tokens for an <span class='text-green-400 font-semibold'>Activation Code</span> providing 30 days of continuous access to the premium trade signal dashboard.",
-        sigCost: "🪙 Signal Code Cost:",
+        sigCost: "🪙 Main Trading Signal Cost:",
         sigOptCost: "📈 Option Signals Cost:",
         days: "Days",
         sigBtn: "🪙 Use 50 TVE for Main Signal (30 Days)",
@@ -504,6 +522,7 @@ function toggleLanguage() {
 }
 </script>
 
+<!-- ===== THEME ENGINE & ANIMATION JS ===== -->
 <script>
 let globalThemeColor = "rgba(34,197,94,";
 
@@ -563,7 +582,7 @@ function toggleTheme() {
         localStorage.setItem('theme', 'light');
     } else {
         body.classList.replace('bg-gray-100', 'bg-gray-950');
-        body.classList.replace('text-gray-900', 'text-gray-100');
+        body.classList.replace('text-gray-100', 'text-gray-100');
         nav.classList.remove('light-theme', 'bg-white/80', 'border-gray-200');
         logoText.classList.replace('text-green-600', 'text-green-400');
         mainThemeBtn.classList.remove('light-toggle');
@@ -638,12 +657,9 @@ function toggleTheme() {
                 const d = Math.sqrt(dx*dx + dy*dy);
                 if (d < MAX_LINK_DIST) {
                     const alpha = (1 - d / MAX_LINK_DIST) * 0.12;
-                    ctx.beginPath();
-                    ctx.strokeStyle = `${globalThemeColor}${alpha})`;
-                    ctx.lineWidth = 0.6;
-                    ctx.moveTo(nodes[i].x, nodes[i].y);
-                    ctx.lineTo(nodes[j].x, nodes[j].y);
-                    ctx.stroke();
+                    ctx.beginPath(); ctx.strokeStyle = `${globalThemeColor}${alpha})`;
+                    ctx.lineWidth = 0.6; ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
                 }
             }
         }
@@ -679,6 +695,7 @@ const io = new IntersectionObserver(entries => {
 reveals.forEach(el => io.observe(el));
 </script>
 
+<!-- SMART CONTRACT WALLET & REDIRECT TARGET -->
 <script>
     const TVE_TOKEN_ADDRESS = "0xa5CF2B6A6E333924ECFaA5C9566578DA7cD571f7";
     const MERCHANT_WALLET   = "0x08426D97b96601299b95dDd9d4DBAe157Bf5F013";
@@ -709,7 +726,7 @@ reveals.forEach(el => io.observe(el));
             const amountToSend  = ethers.parseUnits(priceInTVE.toString(), 18);
             
             const msgConfirm = currentLang === 'th' 
-                ? `ระบบกำลังทำรายการแลกรหัสซิกแนล (${systemType === 'MAIN' ? 'ระบบหลัก' : 'ระบบ Option'}) (30 วัน)\nยอดชำระ: ${priceInTVE} TVE` 
+                ? `ระบบกำลังทำรายการแลกรหัสซิกแนล (${systemType === 'MAIN' ? 'ระบบเทรดหลัก' : 'ระบบ Option'}) (30 วัน)\nยอดชำระ: ${priceInTVE} TVE` 
                 : `Processing trade signal activation (${systemType === 'MAIN' ? 'Main Dashboard' : 'Option Platform'}) (30 Days)\nPrice: ${priceInTVE} TVE`;
             
             alert(msgConfirm);
@@ -718,8 +735,9 @@ reveals.forEach(el => io.observe(el));
             await tx.wait();
             
             const generatedCode = "TVE30-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-            alert(currentLang === 'th' ? `🎉 สำเร็จ!\nรหัสซิกแนลของคุณคือ: ${generatedCode}\nระบบจะนำทางคุณไปยังแพลตฟอร์มหลักครับ` : `🎉 Success!\nYour Signal Code is: ${generatedCode}\nSystem will redirect you to dashboard.`);
+            alert(currentLang === 'th' ? `🎉 สำเร็จ!\nรหัสซิกแนลของคุณคือ: ${generatedCode}\nระบบจะนำทางคุณไปยังแพลตฟอร์มปลายทางครับ` : `🎉 Success!\nYour Signal Code is: ${generatedCode}\nSystem will redirect you to dashboard.`);
             
+            // 🚀 แยกเป้าหมายลิงก์การเข้าใช้งานตามสิทธิ์เมื่อกดชำระเงินสำเร็จ
             if(systemType === 'MAIN') {
                 window.open("https://tvesystem.vercel.app/", "_blank");
             } else {
